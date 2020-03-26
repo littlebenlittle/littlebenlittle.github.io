@@ -1,4 +1,3 @@
-
 <template>
   <v-container
     fluid
@@ -7,17 +6,11 @@
     <v-col
       class="title"
     >
-      <v-row class="justify-end">
-        <v-title
-          class="title justify-around"
-        >
+      <v-row class="justify-end title">
+          {{ name }}
+      </v-row>
+      <v-row class="justify-end subtitle">
           {{ title }}
-        </v-title>
-        <v-subtitle
-          class="subtitle justify-around"
-        >
-          {{ tagline }}
-        </v-subtitle>
       </v-row>
     </v-col>
     <v-col
@@ -34,13 +27,13 @@
 export default {
   name: 'TitleCard',
   props: [
-    'avatar',
     'name',
     'title',
     'tagline',
+    'avatar',
   ],
   data: () => {
-
+    //
   }
 }
 

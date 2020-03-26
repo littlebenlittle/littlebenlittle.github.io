@@ -3,7 +3,7 @@
     <TheNavigationBar/>
     <v-content>
       <TitleCard
-        :avatar="avatar"
+        avatar="./assets/avatar.png"
         :name="name"
         :title="title"
         :tagline="tagline"
@@ -35,7 +35,7 @@ export default {
   },
 
   data: () => ({
-    avatar: "assets/avatar.png",
+    avatar: "./assets/avatar.png",
     name: "Ben Little",
     title: "Software Engineer",
     tagline: "Mindful, Mathematical, Modular",
