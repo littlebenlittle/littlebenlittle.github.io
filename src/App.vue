@@ -3,10 +3,9 @@
     <TheNavigationBar/>
     <v-content>
       <TitleCard
-        avatar="./assets/avatar.png"
-        :name="name"
-        :title="title"
-        :tagline="tagline"
+        name="Ben Little"
+        title="Software Engineer"
+        tagline="Mindful, Mathematical, Modular"
       />
       <Highlights
         showRecentActivity=showRecentActivity
@@ -26,26 +25,12 @@ import Projects from './components/Projects';
 
 export default {
   name: 'App',
-
   components: {
     TheNavigationBar,
     TitleCard,
     Highlights,
     Projects,
   },
-
-  data: () => ({
-    avatar: "./assets/avatar.png",
-    name: "Ben Little",
-    title: "Software Engineer",
-    tagline: "Mindful, Mathematical, Modular",
-    showRecentActivity: true,
-    projects: [
-      {
-        title: "Raku in the Browser",
-        link: "raku-in-the-browser"
-      }
-    ],
-  }),
+  data: () => {return {}},
 };
 </script>
