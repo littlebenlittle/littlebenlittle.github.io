@@ -1,55 +1,69 @@
 <template>
-  <div class="justify-center">
-    <v-container class="grey lighten-4">
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <v-hover>
-            <v-row class="justify-center justify-sm-end mt-sm-6 title" >
-              {{ name }}
-            </v-row>
-          </v-hover>
-          <v-hover>
-            <v-row class="justify-center justify-sm-end subtitle-2" >
-              {{ title }}
-            </v-row>
-          </v-hover>
-          <v-hover>
-            <v-row class="justify-center justify-sm-end mt-4">
-              {{ tagline }}
-            </v-row>
-          </v-hover>
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <v-row class="justify-center justify-sm-start" >
-            <v-img
-              max-width="200"
-              class="mx-6"
-              transition="scale-transition"
-              src="../assets/avatar.png"
-              alt="Ben Little smiles for camera"
-            ></v-img>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+  <v-container>
+    <Dial
+      :axles="axles"
+      :hub="hub"
+    />
+  </v-container>
 </template>
 
 <script>
+import Dial from './Dial';
+
 export default {
   name: 'TitleCard',
-  props: [
-    'name',
-    'title',
-    'tagline',
-  ],
-  data: () => {return {}},
+  components: {
+    Dial
+  },
+  props: {
+    name:    String,
+    title:   String,
+    tagline: String,
+    width:   Number,
+    height:  Number,
+  },
+  data: () => { return {} },
+  
+  computed: {
+    hub () {
+      return {
+        x: this.$props.width  * 5/7,
+        y: this.$props.height * 1/2,
+      }
+    },
+    axles () {
+      return {
+        name: {
+            angle: 9/24,
+            radius: 100,
+            content: {
+              text:   this.$props.name,
+              width:  75,
+              height: 10,
+            }
+        },
+        title: {
+            angle:  10/24,
+            radius: 100,
+            content: {
+              text:   this.$props.title,
+              width:  135,
+              height: 10,
+            }
+        },
+        tagline: {
+            angle:  12/24,
+            radius: 100,
+            content: {
+              text:   this.$props.tagline,
+              width:  232,
+              height: 10,
+            }
+        },
+      }
+    },
+  },
+
 }
 
 </script>

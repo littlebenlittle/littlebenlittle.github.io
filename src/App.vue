@@ -1,35 +1,28 @@
 <template>
   <v-app>
-    <TheNavigationBar/>
-    <v-content>
-      <TitleCard
-        name="Ben Little"
-        title="Software Engineer"
-        tagline="Mindful, Mathematical, Modular"
-      />
-      <Highlights
-        showRecentActivity=showRecentActivity
-      />
-      <Projects
-        projects=projects
-      />
-    </v-content>
+    <TitleCard
+      name="Ben Little"
+      title="Software Engineer"
+      tagline="Mindful, Mathematical, Modular"
+      width="600"
+      height="300"
+    />
   </v-app>
 </template>
 
 <script>
-import TheNavigationBar from './components/TheNavigationBar';
+//import TheNavigationBar from './components/TheNavigationBar';
 import TitleCard from './components/TitleCard';
-import Highlights from './components/Highlights';
-import Projects from './components/Projects';
+//import Highlights from './components/Highlights';
+//import Projects from './components/Projects';
 
 export default {
   name: 'App',
   components: {
-    TheNavigationBar,
+    //TheNavigationBar,
     TitleCard,
-    Highlights,
-    Projects,
+    //Highlights,
+    //Projects,
   },
   data: () => {return {}},
 };
