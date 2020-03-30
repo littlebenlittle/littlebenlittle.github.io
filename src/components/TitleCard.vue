@@ -31,6 +31,7 @@
             stroke="grey"
             stroke-width="3px"
             stroke-dasharray="10 2"
+            display="none"
           />
 
           <foreignObject
