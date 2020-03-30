@@ -1,36 +1,26 @@
 <template>
-  <v-app
-  >
-
-    <v-container
-     :width="model.titlecard.width"
-     :height="model.titlecard.height"
-    >
-        <v-col
-          align="center"
-          justify="center"
-        >
-          <TitleCard
-            name="Ben Little"
-            title="Software Engineer"
-            tagline="Mindful, Mathematical, Modular"
-           :width="model.titlecard.width"
-           :height="model.titlecard.height"
-          />
-        </v-col>
-    </v-container>
-
+  <v-app>
+      <TitleCard
+        name="Ben Little"
+        title="Software Engineer"
+        tagline="Mindful, Mathematical, Modular"
+       :width="model.titlecard.width"
+       :height="model.titlecard.height"
+     >
+         <Portrait/>
+     </TitleCard>
   </v-app>
 </template>
 
 <script>
   import TitleCard from './components/SVG/TitleCard';
+  import Portrait  from './components/Portrait';
 
   function make_model(props) {
     props
     return {
         titlecard: {
-            width:  500,
+            width:  900,
             height: 250,
         },
     }
@@ -40,6 +30,7 @@
     name: 'App',
     components: {
       TitleCard,
+      Portrait,
     },
     data: () => {return {}},
     computed: {

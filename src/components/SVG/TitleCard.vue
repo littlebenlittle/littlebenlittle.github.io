@@ -1,63 +1,58 @@
 <template>
-  <svg
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-   :width="width"
-   :height="height"
-    class="blue lighten-3"
-  >
-
-      <foreignObject
-        id="portrait"
-       :x="model.portrait.x"
-       :y="model.portrait.y"
-       :width="model.portrait.width"
-       :height="model.portrait.height"
+    <v-col
+      align="center"
+      justify="center"
+    >
+      <svg
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+       :width="width"
+       :height="height"
+        class="blue lighten-3"
       >
-        <v-container
-          width="100%"
-          height="100%"
-        >
-          <v-img
-            width="100%"
-            height="100%"
-            src="../../assets/avatar.png"
-            alt="Ben Little smiles for camera"
-          />
-        </v-container>
-      </foreignObject>
 
-      <line
-        v-for="card in model.cards"
-       :key="card.text + '.line'"
-       :x1="model.hub.x"
-       :y1="model.hub.y"
-       :x2="card.joint.x"
-       :y2="card.joint.y"
-        stroke="grey"
-        stroke-width="3px"
-        stroke-dasharray="10 2"
-      />
-
-      <foreignObject
-        v-for="card in model.cards"
-       :key="card.text + '.card'"
-       :x="card.x"
-       :y="card.y"
-       :width="card.width"
-       :height="card.height"
-      >
-          <div
-            width="100%"
-            height="100%"
-            style="text-align: end; padding-right: 10px;"
-           :class="card.classes"
+          <foreignObject
+            id="portrait"
+           :x="model.portrait.x"
+           :y="model.portrait.y"
+           :width="model.portrait.width"
+           :height="model.portrait.height"
           >
-            {{ card.text }}
-          </div>
-      </foreignObject>
+            <slot/>
+          </foreignObject>
 
-  </svg>
+          <line
+            v-for="card in model.cards"
+           :key="card.text + '.line'"
+           :x1="model.hub.x"
+           :y1="model.hub.y"
+           :x2="card.joint.x"
+           :y2="card.joint.y"
+            stroke="grey"
+            stroke-width="3px"
+            stroke-dasharray="10 2"
+          />
+
+          <foreignObject
+            v-for="card in model.cards"
+           :key="card.text + '.card'"
+           :x="card.x"
+           :y="card.y"
+           :width="card.width"
+           :height="card.height"
+          >
+              <div
+                width="100%"
+                height="100%"
+                style="text-align: end; padding-right: 10px;"
+               :class="card.classes"
+              >
+                {{ card.text }}
+              </div>
+          </foreignObject>
+
+      </svg>
+    </v-col>
 </template>
 
 <script>
