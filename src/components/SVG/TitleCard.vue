@@ -4,39 +4,44 @@
     xmlns="http://www.w3.org/2000/svg"
    :width="width"
    :height="height"
-    class="blue lighter-2"
+    class="blue lighten-3"
   >
 
       <foreignObject
-         id="portrait"
-        :x="model.portrait.x"
-        :y="model.portrait.y"
-        :width="model.portrait.width"
-        :height="model.portrait.height"
+        id="portrait"
+       :x="model.portrait.x"
+       :y="model.portrait.y"
+       :width="model.portrait.width"
+       :height="model.portrait.height"
       >
-          <img
-           :width="model.portrait.width"
-           :height="model.portrait.height"
+        <v-container
+          width="100%"
+          height="100%"
+        >
+          <v-img
+            width="100%"
+            height="100%"
             src="../../assets/avatar.png"
             alt="Ben Little smiles for camera"
-            style="opacity: 0.5;"
           />
+        </v-container>
       </foreignObject>
 
       <line
         v-for="card in model.cards"
-       :key="card"
+       :key="card.text + '.line'"
        :x1="model.hub.x"
        :y1="model.hub.y"
        :x2="card.joint.x"
        :y2="card.joint.y"
-       stroke="black"
-       stroke-width="3px"
+        stroke="grey"
+        stroke-width="3px"
+        stroke-dasharray="10 2"
       />
 
       <foreignObject
         v-for="card in model.cards"
-       :key="card"
+       :key="card.text + '.card'"
        :x="card.x"
        :y="card.y"
        :width="card.width"
@@ -45,13 +50,10 @@
           <div
             width="100%"
             height="100%"
-              style="text-align: end; padding-right: 10px;"
+            style="text-align: end; padding-right: 10px;"
+           :class="card.classes"
           >
-            <p
-             :class="card.classes"
-            >
-              {{ card.text }}
-            </p>
+            {{ card.text }}
           </div>
       </foreignObject>
 
@@ -60,10 +62,10 @@
 
 <script>
 
-function make_model(props) {
+  function make_model(props) {
     return {
         portrait: {
-            radius: props.height * 3/4,
+            radius: props.height * 5/6,
         },
         cards: [
             {
@@ -89,7 +91,7 @@ function make_model(props) {
             },
         ],
         hub: {
-            x: props.width  * 5/7,
+            x: props.width  * 6/8,
             y: props.height * 1/2,
         },
     }
