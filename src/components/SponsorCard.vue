@@ -12,7 +12,7 @@
 
 <script>
   
-  import CurrencyExpansionPanelGroup from "./CurrencyExpansionPanelGroup"
+  import CurrencyExpansionPanelGroup from "./Currency/ExpansionPanelGroup"
 
   export default {
     name: 'SponsorCard',
