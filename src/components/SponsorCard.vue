@@ -5,19 +5,19 @@
       SPONSOR
     </div>
 
-    <CurrencyExpansionPanels/>
+    <CurrencyExpansionPanelGroup/>
 
   </v-card>
 </template>
 
 <script>
   
-  import CurrencyExpansionPanels from "./CurrencyExpansionPanels"
+  import CurrencyExpansionPanelGroup from "./CurrencyExpansionPanelGroup"
 
   export default {
     name: 'SponsorCard',
     components: {
-        CurrencyExpansionPanels,
+        CurrencyExpansionPanelGroup,
     },
     data: () => { return {
     }},
