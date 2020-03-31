@@ -27,7 +27,6 @@
         >
           <GithubCard/>
         </v-col>
-
         <v-col
           align="center"
         >
@@ -56,17 +55,6 @@
     },
     data: () => {return {}},
     computed: {
-      model () {
-        let props = this.$props
-        let refs = this.$refs
-        console.log(refs)
-        let m = {}
-        m.titlecard = {
-          width  : refs.theTitleCard.width,
-          height : refs.theTitleCard.height,
-        }
-        return m
-      },
     }
   };
 
