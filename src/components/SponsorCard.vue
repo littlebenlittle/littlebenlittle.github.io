@@ -1,9 +1,15 @@
 <template>
   <v-card>
 
-    <div>
-      SPONSOR
-    </div>
+    <v-card-title>
+      Sponsor Me!
+    </v-card-title>
+
+
+    <v-card-text>
+      Open source development rarely provides any sort of tangible
+      compensation. You can help me keep the code running by donating 🙇
+    </v-card-text>
 
     <CurrencyExpansionPanelGroup/>
 
