@@ -1,5 +1,6 @@
 <template>
   <svg
+    style="border-style: dotted; border-color: red;"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
@@ -14,20 +15,6 @@
       >
         <Portrait/>
       </foreignObject>
-
-      <line
-        v-for="card in model.cards"
-       :key="card.text + '.line'"
-       :x1="model.hub.x"
-       :y1="model.hub.y"
-       :x2="card.joint.x"
-       :y2="card.joint.y"
-        stroke="grey"
-        stroke-width="3px"
-        stroke-dasharray="10 2"
-        display="none"
-      />
-
       <foreignObject
         v-for="card in model.cards"
        :key="card.text + '.card'"
@@ -45,6 +32,40 @@
             {{ card.text }}
           </div>
       </foreignObject>
+
+      <!-- TODO: ben on 2020-04-01T08:53:46Z
+        Skeleton should appear on top of everything else.
+        Vue may have a sly way of doing this by waiting
+        until all the other components have been drawn
+        before drawing the skeleton group. Lifecycle hooks
+        might be the term for it?
+      -->
+      <g
+        v-if="skeleton"
+      >
+        <line
+          v-for="card in model.cards"
+         :key="'spoke' + card.text"
+         :x1="model.hub.x"
+         :y1="model.hub.y"
+         :x2="card.joint.x"
+         :y2="card.joint.y"
+          stroke="grey"
+          stroke-width="3px"
+          stroke-dasharray="10 2"
+        />
+        <line
+          v-for="card in model.cards"
+         :key="'text-midline' + card.text"
+         :x1="card.joint.x"
+         :y1="card.joint.y"
+         :x2="card.joint.x - card.width"
+         :y2="card.joint.y"
+          stroke="grey"
+          stroke-width="3px"
+          stroke-dasharray="10 2"
+        />
+      </g>
 
   </svg>
 </template>
@@ -98,6 +119,7 @@
       tagline: String,
       width:   Number,
       height:  Number,
+      skeleton: Boolean,
     },
     data: () => { return {} },
     computed: {
