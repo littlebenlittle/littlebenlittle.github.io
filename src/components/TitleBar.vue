@@ -5,7 +5,8 @@
       justify="end"
     >
       <v-col
-        cols="6"
+        cols="12"
+        sm="6"
       >
         <TitleCard
           name="Ben Little"
@@ -23,6 +24,9 @@
     name: 'TitleBar',
     components: {
       TitleCard,
+    },
+    props: {
+      justify: String,
     },
     data: () => { return {} },
   }
