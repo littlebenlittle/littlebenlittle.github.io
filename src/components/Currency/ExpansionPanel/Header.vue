@@ -1,4 +1,3 @@
-
 <template>
       <v-expansion-panel-header>
           <v-row
