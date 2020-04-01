@@ -1,22 +1,21 @@
 <template>
   <v-app>
+
+    <div
+      height="200"
+      style="position: fixed; margin-top: 20;"
+    >
+      <v-img
+        src="./assets/rack.jpg"
+        gradient="to top right, rgba(25,32,86,.9), rgba(100,115,201,.4)"
+        style="position: fixed;"
+        height="300"
+      />
+    </div>
+
+    <TitleBar/>
+
     <v-container>
-
-      <v-row
-        align="stretch"
-      >
-        <v-col
-          cols="12"
-        >
-          <TitleCard
-            ref="theTitleCard"
-            name="Ben Little"
-            title="Software Engineer"
-            tagline="Mindful, Mathematical, Modular"
-          />
-        </v-col>
-      </v-row>
-
       <v-row
         align="stretch"
       >
@@ -33,8 +32,8 @@
           <SponsorCard/>
         </v-col>
       </v-row>
-
     </v-container>
+
   </v-app>
 </template>
 
@@ -42,14 +41,14 @@
   /* eslint-disable */
   import style from './css/style.css'
   /* eslint-ensable */
-  import TitleCard   from './components/TitleCard'
+  import TitleBar    from './components/TitleBar'
   import GithubCard  from './components/GithubCard'
   import SponsorCard from './components/SponsorCard'
 
   export default {
     name: 'App',
     components: {
-      TitleCard,
+      TitleBar,
       GithubCard,
       SponsorCard,
     },
