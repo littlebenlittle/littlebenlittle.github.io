@@ -1,20 +1,16 @@
 <template>
-  <v-card
-    class="blue lighten-3"
-    ref="mainCard"
-  >
-    <v-col
-      align="center"
-      justify="center"
-    >
-      <PortraitDial
-       :name="name"
-       :title="title"
-       :tagline="tagline"
-       :width="width"
-       :height="height"
-      />
-    </v-col>
+  <v-card>
+    <v-container>
+      <v-row>
+        <PortraitDial
+         :name="name"
+         :title="title"
+         :tagline="tagline"
+         :width="400"
+         :height="150"
+        />
+      </v-row>
+    </v-container>
   </v-card>
 </template>
 
@@ -34,11 +30,8 @@
       tagline : String,
     },
     computed: {
-      width () {
-        return 250
-      },
-      height () {
-        return 250
+      radius () {
+        return this.$props.height
       },
     },
   }

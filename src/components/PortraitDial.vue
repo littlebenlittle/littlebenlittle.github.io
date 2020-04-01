@@ -1,6 +1,5 @@
 <template>
   <svg
-    ref="portrait-dial"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
@@ -79,10 +78,6 @@
               classes : "",
             },
         ],
-        hub: {
-            x: props.width  * 6/8,
-            y: props.height * 1/2,
-        },
     }
   }
 
@@ -108,16 +103,21 @@
     computed: {
       model () {
           var m = make_model(this.$props)
-          m.portrait = {}
-
-          m.portrait.radius = this.$props.height * 5/6,
-          m.portrait.x      = m.hub.x - m.portrait.radius / 2
-          m.portrait.y      = m.hub.y - m.portrait.radius / 2
-          m.portrait.width  = m.portrait.radius
-          m.portrait.height = m.portrait.radius
+          let width  = this.$props.width
+          let height = this.$props.height
+          m.hub = {
+            x : width  - height / 2,
+            y : height - height / 2,
+          }
+          m.portrait = {
+            x : width  - height,
+            y : height - height,
+          }
+          m.portrait.width  = height
+          m.portrait.height = height
 
           m.cards.forEach( card => {
-              card.joint = vec_add(m.hub, card.angle, m.portrait.radius)
+              card.joint = vec_add(m.hub, card.angle, height)
               card.x = card.joint.x - card.width
               card.y = card.joint.y - card.height / 2
           })
