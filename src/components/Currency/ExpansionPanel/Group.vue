@@ -1,4 +1,3 @@
-
 <template>
   <v-container>
 
@@ -26,16 +25,16 @@
 
 <script>
 
-import btcqr   from "../../assets/btc-qr.svg"
-import ethqr   from "../../assets/eth-qr.svg"
-import btcicon from "../../assets/btc-icon.svg"
-import ethicon from "../../assets/eth-icon.svg"
+import btcqr   from "../../../assets/btc-qr.svg"
+import ethqr   from "../../../assets/eth-qr.svg"
+import btcicon from "../../../assets/btc-icon.svg"
+import ethicon from "../../../assets/eth-icon.svg"
 
-import CurrencyExpansionPanel from "./ExpansionPanel"
-import CurrencyQRDialog from "./QRDialog"
+import CurrencyExpansionPanel from "./Panel"
+import CurrencyQRDialog from "../QRDialog"
 
 export default {
-  name: 'CurrencyExpansionPanels',
+  name: 'CurrencyExpansionPanelGroup',
   components: {
     CurrencyExpansionPanel,
     CurrencyQRDialog,

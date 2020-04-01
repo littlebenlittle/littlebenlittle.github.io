@@ -1,6 +1,5 @@
-<template>
-    <v-expansion-panel >
 
+<template>
       <v-expansion-panel-header>
           <v-row
             align="center"
@@ -26,37 +25,16 @@
             </v-col>
           </v-row>
       </v-expansion-panel-header>
-
-      <v-expansion-panel-content>
-        <v-container>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols=2
-            >
-              <v-btn
-                rounded
-                @click.stop="$emit('show-qr')"
-              >
-                Show QR
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-expansion-panel-content>
-
-    </v-expansion-panel>
 </template>
 
 <script>
 export default {
-  data: () => { return {
-  }},
+  name: 'ExansionPanelHeader',
   props: {
-      name : String,
-      icon : String,
+    name: String,
+    icon: String,
   },
+  data: () => { return {} },
 }
 
 </script>
