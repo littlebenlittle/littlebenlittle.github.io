@@ -15,24 +15,7 @@
 
     <TitleBar/>
 
-    <v-container>
-      <v-row
-        align="stretch"
-      >
-        <v-col
-          cols="12"
-          sm="7"
-          align="center"
-        >
-          <GithubCard/>
-        </v-col>
-        <v-col
-          align="center"
-        >
-          <SponsorCard/>
-        </v-col>
-      </v-row>
-    </v-container>
+    <OpenSourceBar/>
 
   </v-app>
 </template>
@@ -41,16 +24,14 @@
   /* eslint-disable */
   import style from './css/style.css'
   /* eslint-ensable */
-  import TitleBar    from './components/TitleBar'
-  import GithubCard  from './components/GithubCard'
-  import SponsorCard from './components/SponsorCard'
+  import TitleBar          from './components/TitleBar'
+  import OpenSourceBar from './components/OpenSourceBar'
 
   export default {
     name: 'App',
     components: {
       TitleBar,
-      GithubCard,
-      SponsorCard,
+      OpenSourceBar,
     },
     data: () => {return {}},
     computed: {
