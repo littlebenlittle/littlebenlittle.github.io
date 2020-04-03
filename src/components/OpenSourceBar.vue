@@ -1,35 +1,38 @@
-
 <template>
-    <v-container>
-      <v-row
-        align="stretch"
+  <v-container>
+    <!-- TODO: ben on 2020-04-02T18:19:29Z MDT
+      Fix the upper padding on the sponsor/stackoverflow
+      section so the cards all line up neatly
+    -->
+    <v-row
+      align="stretch"
+    >
+      <v-col
+        cols="12"
+        sm="7"
+        align="center"
       >
-        <v-col
-          cols="12"
-          sm="7"
+        <GithubCard/>
+      </v-col>
+      <v-col
           align="center"
+      >
+        <v-row
         >
-          <GithubCard/>
-        </v-col>
-        <v-col
-            align="center"
-        >
-          <v-row
+          <v-col
+            cols="12"
           >
-            <v-col
-              cols="12"
-            >
-              <SponsorCard/>
-            </v-col>
-            <v-col>
-              <StackOverflowCard
-                feed="https://stackoverflow.com/feeds/user/5530704"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
+            <SponsorCard/>
+          </v-col>
+          <v-col>
+            <StackOverflowCard
+              userid="5530704"
+            />
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
