@@ -12,3 +12,6 @@ build:
 serve:
 	@podman exec -ti $(ctr) jekyll serve
 
+update:
+	@podman exec -ti $(ctr) bundle update
+
