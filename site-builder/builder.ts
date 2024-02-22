@@ -266,8 +266,16 @@ function main() {
         .option("-c, --clean", "remove all files in build dir before build", true)
         .action((root, buildDir, options) => {
             if (options.clean) {
-                for (const entry of fs.readdirSync(buildDir)) {
-                    fs.rmSync(path.join(buildDir, entry), { recursive: true, force: true })
+                if (fs.existsSync(buildDir)) {
+                    if (fs.statSync(buildDir).isDirectory()) {
+                        for (const entry of fs.readdirSync(buildDir)) {
+                            fs.rmSync(path.join(buildDir, entry), { recursive: true, force: true })
+                        }
+                    } else {
+                        throw `not a directory: ${buildDir}`
+                    }
+                } else {
+                    fs.mkdirSync(buildDir)
                 }
             }
             build(root, buildDir)
