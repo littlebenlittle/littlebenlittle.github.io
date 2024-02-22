@@ -253,7 +253,6 @@ function main() {
     hljs.registerLanguage('rust', rust)
     hljs.registerLanguage('go', go)
     hljs.registerLanguage('ts', ts)
-    console.log("0")
 
     const program = new Command()
     program
@@ -269,7 +268,6 @@ function main() {
             if (options.clean) {
                 if (fs.existsSync(buildDir)) {
                     if (fs.statSync(buildDir).isDirectory()) {
-                        console.log("3")
                         for (const entry of fs.readdirSync(buildDir)) {
                             fs.rmSync(path.join(buildDir, entry), { recursive: true, force: true })
                         }
@@ -280,7 +278,6 @@ function main() {
                     fs.mkdirSync(buildDir)
                 }
             }
-            console.log("5")
             build(root, buildDir)
         })
 
