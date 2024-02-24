@@ -19,7 +19,7 @@ snips:
 
 ## Type Systems are Logic
 
-The [Curry-Howard-Lambek-Scott](1) correspondence famously shows
+The [Curry-Howard-Lambek-Scott][1] correspondence famously shows
 that type systems and logic are the same kind of thing. Another
 way of looking at type systems is that they are a form of
 [abstract interpretation][2]. There are countless other ways of
@@ -31,7 +31,7 @@ that I personally find useful for reasoning about code!
 
 Recently I've been using Go's `syscall/js` package. This is a
 low-level library that allows Go code compiled to `wasm` to
-interact with [Web APIs](3) when run in the browser. One
+interact with [Web APIs][3] when run in the browser. One
 major challenge of working with `syscall/js` is that it does
 provide type-safety, meaning it's very easy to get runtime
 errors by passing an argument of the wrong type.
@@ -142,7 +142,7 @@ func alert3() {
 Assuming our wrapper code is implemented correctly, we
 now have a reusable, type-safe interface for calling
 `alert` on the JS window element when the window loads. In
-fact, there is an entire project called [`gopherjs`](4) that
+fact, there is an entire project called [`gopherjs`][4] that
 tries to do exactly this: provide type-safe and correct
 wrappers for just about every Web API.
 
@@ -214,7 +214,7 @@ Type can be used for all sorts of things. In fact, some type
 theories are expressive enough to represent arbitrary computation
 and hence arbitrary logic. Here's a few examples of some
 interesting choices made by various programming languages in
-their type systems
+their type systems:
 
 ### TypeScript's "Type Predicates"
 
@@ -279,7 +279,7 @@ the value `x` is referenced after its underlying value
 has been dropped. In rust, variables are dropped as soon
 as they go out of the scope, so in this case `x` is dropped
 right before the `return` statement of `f`. Therefore any
-referene to `x` that outlives this scope will be invalid!
+reference to `x` that outlives this scope will be invalid!
 
 ### Go
 
