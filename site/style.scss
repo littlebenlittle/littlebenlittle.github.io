@@ -167,6 +167,8 @@ footer#page-footer {
             border-width: 3px;
             border-radius: 3px;
             padding: $code-block-padding;
+            overflow: scroll;
+            tab-size: 32px;
         }
 
         a {
