@@ -9,10 +9,11 @@ meta:
     is to help people not only use but also understand computers.
 about:
   name: Ben Little
+  pronouns: he/they
   tagline: Software Engineer, Mathematician, and Computer Scientist 
 ---
 
-# {{{ about.name }}}
+# {{{ about.name }}} ({{{ about.pronouns }}})
 
 ### {{{ about.tagline }}}
 
