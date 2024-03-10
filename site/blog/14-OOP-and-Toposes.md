@@ -212,39 +212,10 @@ should always terminate if we want to guarantee program
 progress. Well, guaranteeing that something terminates is...
 precisely the halting problem.
 
-Proving that something terminates is done by producing an
-equivalent program in a language that guarantees termination.
-Many options are avaible, including `for` languages that don't
-permit `while` loops, stack-based programming languages, and
-propositional logic.
-
-In a general-purpose programming language like Go, the simplest
-resriction is this:
-
-> _Context checking code must be written using only nested_
-  _conditional statements and for-loops._
-
-This seems kind of harsh, but the payoff is code that with
-deterministic behavior.
-
-## The General Formula for OOP
-
-With the above discussion in mind, there's a pretty straightforward
-way to think about OOP in terms of logical specification:
-
-```
-Object: how context is laid out in memory
-
-Object Method: list of before/after relationships for context
-```
-
-By limiting the specification formulas to propositional logic,
-progress (termination) is guaranteed.
-
 ## Conclusion
 
 I hope you enjoyed this post on OOP and logic. The notion of a
 topos helps pin down the relationship between `objects|methods`
-and `sites|facts`. I believe there is a great deal for software
+and `sites|logical formulas`. I believe there is a great deal for software
 engineers to learn by taking different perspectives on code, and
 topos theory is one helpful concept worth exploring!
