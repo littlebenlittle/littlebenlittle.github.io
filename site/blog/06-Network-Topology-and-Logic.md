@@ -1,6 +1,6 @@
 ---
 id: 1661a766-3872-4209-9d72-74660834bf2d
-title: "Network Topolgy and Logic"
+title: "Networks and Logic"
 date: 2024-03-12T13:00:00.000Z
 template: post.hbs
 excerpt: >-
@@ -270,7 +270,7 @@ possibly with rewriting rules to handle things NAT traversal.
 
 ## Conclusions
 
-I hope you enjoyed this post on network topologies and logic.
+I hope you enjoyed this post on networks and logic.
 It's surprising that first-order logic with transitive
 closure--something that arsises in the very first layer--is
 really the limiting source of complexity. Everything else is
