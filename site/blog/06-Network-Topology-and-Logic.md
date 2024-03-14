@@ -148,7 +148,7 @@ its use of UDP, a much less complex layer 4 protocol.
 > ... Or did we reach the end? Many people have referred to
 layer 8, the financial layer, and layer 9, the political layer.
 As we've seen in the past decade, distributed ledgers like
-Bitcoin and Ethereum have emerged, and plenty of a online
+Bitcoin and Ethereum have emerged, and plenty of online
 activism communities have formed using layer 7 applications for
 communication and organizing. Modern computer networks are a
 powerful way to notify us of emerging threats to justice,

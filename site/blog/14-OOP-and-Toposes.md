@@ -11,7 +11,7 @@ excerpt: >-
   right style? In this post I discuss how the
   category-theoretic notion of a topos captures
   the principles of OOP and when the resources
-  needed to reason about topses become intractable.
+  needed to reason about execution become intractable.
 ---
 
 # {{{ title }}}

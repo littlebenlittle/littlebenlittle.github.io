@@ -5,7 +5,7 @@
 - [x] fix overflow on `pre` blocks
 - [x] blog post url paths should be uuids
 - [ ] content warning on posts with sensitive content
-- [ ] put name in site header
+- [x] put name in site header
 - [ ] spell checking in the build
 - [ ] `{{#aside}}` helper
 - [ ] pagination for blog posts

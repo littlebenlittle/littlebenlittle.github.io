@@ -4,7 +4,7 @@ title: Building (Another) Static Site Generator
 date: 2024-02-22T20:31:26.392Z
 template: post.hbs
 excerpt: >-
-  Building a static generator is a good exercise
+  Building a static generator is a good exercise in
   computational thinking. Subtle complexities arise
   when thinking about data that is available in the
   source, data that is available during compilation,
