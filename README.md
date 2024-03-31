@@ -5,7 +5,7 @@
 - [x] fix overflow on `pre` blocks
 - [x] blog post url paths should be uuids
 - [ ] content warning on posts with sensitive content
-- [x] put name in site header
+- [ ] put name in site header
 - [ ] spell checking in the build
 - [ ] `{{#aside}}` helper
 - [ ] pagination for blog posts
@@ -15,8 +15,12 @@
 - [ ] (_maybe_) syndication handlers in ci
 - [ ] fix padding and bg color around code blocks
 - [ ] (_maybe_) Mega-Markdown Monstrocity, aka mmmmmmmmm _microwave_
+<<<<<<< HEAD
+=======
 - [ ] `target=_blank` for external links in markdown
+>>>>>>> main
 - [ ] (_maybe_) a `{{ tootit }}` in-line helper that toots excerpts from posts
+- [ ] spellcheck, or at least unique word finder
 
 ### Notes
 

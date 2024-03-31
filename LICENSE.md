@@ -1,3 +1,5 @@
+Copyright Ben Little
+
 # Do No Harm License
 
 ## 1. Preamble
