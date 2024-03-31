@@ -15,10 +15,7 @@
 - [ ] (_maybe_) syndication handlers in ci
 - [ ] fix padding and bg color around code blocks
 - [ ] (_maybe_) Mega-Markdown Monstrocity, aka mmmmmmmmm _microwave_
-<<<<<<< HEAD
-=======
 - [ ] `target=_blank` for external links in markdown
->>>>>>> main
 - [ ] (_maybe_) a `{{ tootit }}` in-line helper that toots excerpts from posts
 - [ ] spellcheck, or at least unique word finder
 
