@@ -17,6 +17,7 @@
 - [ ] (_maybe_) Mega-Markdown Monstrocity, aka mmmmmmmmm _microwave_
 - [ ] `target=_blank` for external links in markdown
 - [ ] (_maybe_) a `{{ tootit }}` in-line helper that toots excerpts from posts
+- [ ] spellcheck, or at least unique word finder
 
 ### Notes
 
