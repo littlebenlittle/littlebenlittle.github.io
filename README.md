@@ -2,6 +2,7 @@
 
 ### TODOs
 
+- [ ] group posts in directories
 - [x] fix overflow on `pre` blocks
 - [x] blog post url paths should be uuids
 - [ ] content warning on posts with sensitive content
