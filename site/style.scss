@@ -28,13 +28,12 @@ html {
     }
 }
 
-
 header#page-header {
     height: $header-height;
     border-bottom: 3px solid $smoke;
     background-color: $char;
     top: 0;
-    
+
     nav {
         max-width: $max-width;
         margin: auto;
@@ -49,6 +48,16 @@ header#page-header {
 
     a:hover {
         color: $rust-dark;
+    }
+
+    .attention::before {
+        content: "»";
+        padding-right: 8px;
+    }
+
+    .attention::after {
+        content: "«";
+        padding-left: 8px;
     }
 }
 
