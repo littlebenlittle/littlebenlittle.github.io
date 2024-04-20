@@ -3,6 +3,12 @@ id: 33e66390-19cf-4a8d-a262-27228763dca7
 title: "WASM and WASI"
 date: 2024-04-11T18:33:57.350Z
 template: post.hbs
+excerpt: >-
+  WebAssembly (WASM) and the WebAssembly System Interface
+  (WASI) are likely to power the next generation of web
+  applications. This is a brief note on what they are and
+  how they might change the way we interact with data on
+  the internet.
 ---
 
 # {{{ title }}}
