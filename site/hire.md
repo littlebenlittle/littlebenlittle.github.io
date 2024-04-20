@@ -11,6 +11,11 @@ about:
   name: Ben Little
 ---
 
+<<<<<<< HEAD
+# {{{ title }}}
+
+=======
+>>>>>>> main
 My name is Ben (he/they) and I am a computer scientist, mathematician, and software engineer. I enjoy designing computer systems to meet human needs and am highly motivated by projects with social impact. My computing journey started 8 years ago when I first saw the potential of computer networks as tools for organizing and empowerment, if only we could move beyond centralized platforms like social media and search engines.
 
 My ideal job is designing and prototyping tools that empower more people to build tools that meet their needs. Some examples are compilers, virtual machines, and programming languages. This is a highly specialized area and I suspect that only a few organizations are looking for someone with these skills.

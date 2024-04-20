@@ -29,7 +29,7 @@ html {
 }
 
 header#page-header {
-    height: $header-height;
+    border-bottom: 3px solid $smoke;
     border-bottom: 3px solid $smoke;
     background-color: $char;
     top: 0;
@@ -40,10 +40,23 @@ header#page-header {
     }
 
     a {
-        font-size: xx-large;
         text-decoration: none;
         color: $rust;
         font-weight: 500;
+        font-size: xx-large;
+        margin-right: 16px;
+    }
+
+    @media(max-width: $transition-screen-width) {
+        a.nav-item {
+            display: none;
+        }
+    }
+
+    @media(min-width: $transition-screen-width) {
+        a.nav-link {
+            display: none;
+        }
     }
 
     a:hover {
