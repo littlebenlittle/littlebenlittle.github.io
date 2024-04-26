@@ -111,12 +111,12 @@ footer#page-footer {
 #main {
     font-size: 20px;
     padding-bottom: 200px;
+    max-width: $max-width;
+    margin-left: auto;
+    margin-right: auto;
 
     section {
         width: 100%;
-        max-width: $max-width;
-        margin-left: auto;
-        margin-right: auto;
         padding-top: 32px;
         padding-bottom: 32px;
         padding-right: 32px;
@@ -125,6 +125,8 @@ footer#page-footer {
 
     section#blog {
         max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
 
         a {
             color: $rust;
@@ -150,6 +152,14 @@ footer#page-footer {
             }
         }
 
+    }
+    
+    input#show-sensitive-content ~ section#post-content {
+        display: none;
+    }
+
+    input#show-sensitive-content:checked ~ section#post-content {
+        display: block;
     }
 
     section#post-content {
