@@ -5,6 +5,6 @@ set -e
 podman run -ti --rm \
     --name site-builder \
     --workdir /run \
-    --volume ./site:/run/site:ro \
+    --volume ./site:/run/site:rw \
     --volume ./build:/run/build:rw \
     site-builder "$@"

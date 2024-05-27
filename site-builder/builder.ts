@@ -261,8 +261,8 @@ function main() {
 
     program.command("build")
         .description("build the site")
-        .argument("<root>", "root directory for site content")
-        .argument("<build>", "directory to build site into")
+        .argument("[root]", "root directory for site content", "./site")
+        .argument("[build]", "directory to build site into", "./build")
         .option("-c, --clean", "remove all files in build dir before build", true)
         .action((root, buildDir, options) => {
             if (options.clean) {
@@ -283,10 +283,10 @@ function main() {
 
     program.command("new")
         .description("format metadata for a new post")
-        .argument("[root]", "root directory for site content", ".")
+        .argument("[root]", "root directory for site content", "./site")
+        .option("-t, --title [title]", "post title", "My Latest Post")
         .option("-c, --config [path]", "relative path to config from <root>", "./_config.yaml")
-        .option("-t, --title [title]", "post title", "")
-        .action((root, options) => {
+        .action((root, options: {config: string, title: string}) => {
             const configPath = path.join(root, options.config)
             const config =
                 yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
@@ -296,7 +296,8 @@ function main() {
                 date: new Date(Date.now()).toISOString(),
                 template: config.blogTemplate,
             }
-            console.log(`---\n${yaml.stringify(metadata)}---\n`)
+            const filePath = path.join(root, "blog", `${options.title.replaceAll(" ", "-")}.md`)
+            fs.writeFileSync(filePath, `---\n${yaml.stringify(metadata)}---\n`)
         })
 
     program.command("compile")

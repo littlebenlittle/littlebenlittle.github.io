@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!--TODO warn on title with more than 50 chars-->
     <title>Ben Little | {{ title }}</title>
@@ -11,16 +12,25 @@
     {{/if}}
     {{> head-common }}
 </head>
+
 <body>
 
-{{> header }}
+    {{> header }}
 
-<div id="main">
-<section id="post-content">
-{{{ content }}}
-</section>
-</div>
+    <div id="main">
+        {{#if sensitive }}
+        {{> content-warning }}
+        <section id="post-content">
+            {{{ content }}}
+        </section>
+        {{else}}
+        <section id="post-content">
+            {{{ content }}}
+        </section>
+        {{/if}}
+    </div>
 
-{{> footer }}
+    {{> footer }}
 </body>
+
 </html>
