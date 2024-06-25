@@ -11,6 +11,8 @@ about:
 
 [Home](/)
 
+[Services](/services.html)
+
 [Hire Me](/hire.html)
 
 [Blog](/blog)

@@ -13,7 +13,7 @@ $blueberry-dark: #02a0f0;
 $inline-code-padding: 8px;
 $code-block-padding: 16px;
 $header-height: 64px;
-$transition-screen-width: 900px;
+$transition-screen-width: 850px;
 $max-width: 1200px;
 
 html {
@@ -28,7 +28,7 @@ html {
     }
 }
 
-header#page-header {
+header {
     border-bottom: 3px solid $smoke;
     border-bottom: 3px solid $smoke;
     background-color: $char;
@@ -37,44 +37,35 @@ header#page-header {
     nav {
         max-width: $max-width;
         margin: auto;
-    }
 
-    a {
-        text-decoration: none;
-        color: $rust;
-        font-weight: 500;
-        font-size: x-large;
-        margin-right: 16px;
-    }
-
-    @media(max-width: $transition-screen-width) {
-        a.nav-item {
-            display: none;
+        a {
+            text-decoration: none;
+            color: $rust;
+            font-weight: 500;
+            font-size: x-large;
+            margin-right: 16px;
         }
-    }
 
-    @media(min-width: $transition-screen-width) {
-        a.nav-link {
-            display: none;
+        @media(max-width: $transition-screen-width) {
+            a:not(#nav-link):not(#home-link) {
+                display: none;
+            }
         }
-    }
 
-    a:hover {
-        color: $rust-dark;
-    }
+        @media(min-width: $transition-screen-width) {
+            a#nav-link {
+                display: none;
+            }
+        }
 
-    .attention::before {
-        content: "»";
-        padding-right: 8px;
-    }
+        a:hover {
+            color: $rust-dark;
+        }
 
-    .attention::after {
-        content: "«";
-        padding-left: 8px;
     }
 }
 
-footer#page-footer {
+footer {
     border-top: 3px solid $smoke;
     background-color: $char;
     font-size: xx-large;
@@ -102,13 +93,10 @@ footer#page-footer {
         display: flex;
     }
 
-    #profile-picture-container {
-        margin-top: 16px;
-    }
-
 }
 
-#main {
+
+main {
     font-size: 20px;
     padding-bottom: 200px;
     max-width: $max-width;
@@ -121,6 +109,12 @@ footer#page-footer {
         padding-bottom: 32px;
         padding-right: 32px;
         padding-left: 32px;
+    }
+
+    section#about {
+        #profile-picture-container {
+            margin-top: 16px;
+        }
     }
 
     section#blog {
@@ -153,16 +147,16 @@ footer#page-footer {
         }
 
     }
-    
-    input#show-sensitive-content ~ section#post-content {
+
+    input#show-sensitive-content~section#post-content {
         display: none;
     }
 
-    input#show-sensitive-content:checked ~ section#post-content {
+    input#show-sensitive-content:checked~section#post-content {
         display: block;
     }
 
-    section#post-content {
+    .content {
         h1 {
             font-weight: 700;
         }
@@ -172,8 +166,10 @@ footer#page-footer {
             border-bottom: 3px solid $smoke;
             margin-top: 32px;
         }
-        
-        h2, h3, h4 {
+
+        h2,
+        h3,
+        h4 {
             margin-bottom: 1rem;
         }
 
@@ -181,7 +177,7 @@ footer#page-footer {
             font-weight: 500;
             border-bottom: 3px solid;
         }
-        
+
         h4 {
             font-weight: 500;
             border-bottom: 3px dotted;
@@ -219,4 +215,14 @@ footer#page-footer {
             color: $blueberry-dark;
         }
     }
+}
+
+.attention::before {
+    content: "»";
+    padding-right: 8px;
+}
+
+.attention::after {
+    content: "«";
+    padding-left: 8px;
 }
