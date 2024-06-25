@@ -101,7 +101,7 @@ that is something more than the original data.
 
 You can check out my new static site generator under `site-builder`
 in this site's repo:
-[https://github.come/littlebenlittle/littlebenlittle.github.io][3].
+[https://github.com/littlebenlittle/littlebenlittle.github.io][3].
 
 [1]: https://github.com/littlebenlittle/site-gen
 [2]: https://handlebarsjs.com/
