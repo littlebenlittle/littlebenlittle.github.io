@@ -12,21 +12,57 @@
 
 {{> header }}
 
-<div id="main">
+<main>
 
 <section id="about" class="w3-container lit-row">
-    <div id="profile-picture-container" class="lit-half w3-center w3-container">
+    <div id="profile">
         <img
           id="profile-picture"
           class="w3-image"
           src="/assets/profile.jpg"
           alt="Ben smiles for the camera"
         >
+        <div id="identity">
+          <h1>{{{ about.name }}}</h1>
+          <h3><a href="https://pronouns.org/what-and-why">{{{ about.pronouns }}}</a></h3>
+          <h3>{{{ about.tagline }}}</h3>
+        </div>
     </div>
 
-    <div class="lit-half w3-container">
+    <div class="content">
         {{{ content }}}
     </div>
+</section>
+
+<section id="hire-me" class="w3-container">
+  <h2>Hire Me</h2>
+  <p>{{{ hire_me }}}</p>
+  <div class="row">
+    <!-- Resume Card -->
+    <div class="w3-card">
+      <header class="w3-container">
+        <h3>Resume/CV</h3>
+      </header>
+      <div class="w3-container content">
+        {{{ resume.excerpt }}}
+      </div>
+      <footer class="w3-right-align">
+          <a href="/resume">View Resume</a>
+      </footer>
+    </div>
+    <!-- Cover Letter Card -->
+    <div class="w3-card">
+      <header class="w3-container">
+        <h3>Cover Letter</h3>
+      </header>
+      <div class="w3-container content">
+        {{{ cover_letter.excerpt }}}
+      </div>
+      <footer class="w3-right-align">
+          <a href="/hire.html">View Cover Letter</a>
+      </footer>
+    </div>
+  </div>
 </section>
 
 <section id="blog" class="w3-container">
@@ -55,7 +91,7 @@
 </div>
 </section>
 
-</div>
+</main>
 
 {{> footer }}
 </body>
