@@ -1,9 +1,11 @@
 import * as path from 'path'
 import * as fs from 'fs'
 import * as process from 'process'
+import { https } from 'follow-redirects'
 
 import * as handlebars from 'handlebars'
 import markdownit from 'markdown-it'
+import markdownit_anchor from 'markdown-it-anchor'
 import fm from 'front-matter'
 import * as sass from 'sass'
 import { Command } from 'commander'
@@ -14,6 +16,8 @@ import hljs from 'highlight.js/lib/core'
 import rust from 'highlight.js/lib/languages/rust';
 import go from 'highlight.js/lib/languages/go';
 import ts from 'highlight.js/lib/languages/typescript';
+
+let md = markdownit().use(markdownit_anchor);
 
 interface Site {
     files: string[],
@@ -54,6 +58,10 @@ interface BlogPostSource extends PageSource {
 
 interface Config {
     blogTemplate: string,
+    include: {
+        path: string,
+        target: string,
+    }[]
 }
 
 function index(dir: string, files: string[]) {
@@ -121,8 +129,8 @@ function loadPageSource<T extends PageSourceMetadata>(file: string, srcdir: stri
 
 function compilePageSource(src: PageSource, globals: Globals): string {
     const view = { globals, ...src.attributes }
-    const md = handlebars.compile(src.body)(view)
-    const content = markdownit().render(md)
+    const markdown = handlebars.compile(src.body)(view)
+    const content = md.render(markdown)
     const $ = cheerio.load(content)
     $('code.language-rs').each((i, el) => {
         const code = $(el).text()
@@ -264,7 +272,8 @@ function main() {
         .argument("[root]", "root directory for site content", "./site")
         .argument("[build]", "directory to build site into", "./build")
         .option("-c, --clean", "remove all files in build dir before build", true)
-        .action((root, buildDir, options) => {
+        .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
+        .action((root, buildDir, options: { clean: boolean, config: string }) => {
             if (options.clean) {
                 if (fs.existsSync(buildDir)) {
                     if (fs.statSync(buildDir).isDirectory()) {
@@ -279,14 +288,27 @@ function main() {
                 }
             }
             build(root, buildDir)
+            const configPath = path.join(root, options.config)
+            const config =
+                yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
+            config.include.forEach(redirect => {
+                let file = fs.createWriteStream(path.join(buildDir, redirect.path))
+                https.get(redirect.target, response => {
+                    if (response.errored) {
+                        console.log(response.errored)
+                    } else {
+                        response.pipe(file)
+                    }
+                })
+            });
         })
 
     program.command("new")
         .description("format metadata for a new post")
         .argument("[root]", "root directory for site content", "./site")
         .option("-t, --title [title]", "post title", "My Latest Post")
-        .option("-c, --config [path]", "relative path to config from <root>", "./_config.yaml")
-        .action((root, options: {config: string, title: string}) => {
+        .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
+        .action((root, options: { config: string, title: string }) => {
             const configPath = path.join(root, options.config)
             const config =
                 yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
