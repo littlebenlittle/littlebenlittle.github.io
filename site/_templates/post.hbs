@@ -17,18 +17,18 @@
 
     {{> header }}
 
-    <div id="main">
+    <main>
         {{#if sensitive }}
         {{> content-warning }}
-        <section id="post-content">
+        <section class="content">
             {{{ content }}}
         </section>
         {{else}}
-        <section id="post-content">
+        <section class="content">
             {{{ content }}}
         </section>
         {{/if}}
-    </div>
+    </main>
 
     {{> footer }}
 </body>
