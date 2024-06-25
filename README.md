@@ -2,7 +2,7 @@
 
 ### TODOs
 
-- [ ] add "hire me" CTA beneath hero on home page
+- [x] add "hire me" CTA beneath hero on home page
 - [ ] add smarter canonical links to builder
 - [ ] group posts in directories
 - [x] fix overflow on `pre` blocks
