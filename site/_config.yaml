@@ -2,3 +2,5 @@ blogTemplate: post.hbs
 include:
   - path: /resume.pdf
     target: https://github.com/littlebenlittle/cv/releases/download/v0.1.0/resume.pdf
+  - path: /resume.html
+    target: https://github.com/littlebenlittle/cv/releases/download/v0.1.0/resume.html
