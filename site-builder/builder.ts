@@ -4,7 +4,7 @@ import * as process from 'process'
 import { https } from 'follow-redirects'
 
 import * as handlebars from 'handlebars'
-import markdownit from 'markdown-it'
+import markdownit, { Token } from 'markdown-it'
 import markdownit_anchor from 'markdown-it-anchor'
 import fm from 'front-matter'
 import * as sass from 'sass'
@@ -16,8 +16,31 @@ import hljs from 'highlight.js/lib/core'
 import rust from 'highlight.js/lib/languages/rust';
 import go from 'highlight.js/lib/languages/go';
 import ts from 'highlight.js/lib/languages/typescript';
+import * as pug from 'pug'
 
-let md = markdownit().use(markdownit_anchor);
+let md = markdownit().use(markdownit_anchor)
+md.core.ruler.push('external-links', state => {
+    for (const t of state.tokens) {
+        check_external_link(t)
+    }
+})
+
+function check_external_link(t: Token) {
+    if (t.children != null) {
+        for (const c of t.children) {
+            check_external_link(c)
+        }
+    } else if (t.type === 'link_open') {
+        const href = t.attrGet("href")
+        if (href == null) {
+            return
+        }
+        if (!href.startsWith("https://benlittle.dev") && (href.startsWith('http://') || href.startsWith("https://"))) {
+            console.log(`external link: ${href}`)
+            t.attrJoin("class", "external")
+        }
+    }
+}
 
 interface Site {
     files: string[],
@@ -241,10 +264,21 @@ function build(srcdir: string, builddir: string) {
         })
 
     files
+        .filter((file) => path.extname(file) == '.pug')
+        .forEach((file) => {
+            const data = fs.readFileSync(file, "utf8")
+            const { body, attributes } = fm<{ meta: { file_ext: string } }>(data)
+            const result = pug.compile(body)(attributes)
+            const out = outpath(srcdir, file, builddir, attributes.meta.file_ext)
+            fs.writeFileSync(out, result)
+        })
+
+    files
         .filter((file) => {
             switch (path.extname(file)) {
                 case ".md":
                 case ".scss":
+                case ".pug":
                     return false
                 default:
                     return true
@@ -273,7 +307,8 @@ function main() {
         .argument("[build]", "directory to build site into", "./build")
         .option("-c, --clean", "remove all files in build dir before build", true)
         .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
-        .action((root, buildDir, options: { clean: boolean, config: string }) => {
+        .option("-l, --local", "relative path to config from <root>", false)
+        .action((root, buildDir, options: { clean: boolean, config: string, local: boolean }) => {
             if (options.clean) {
                 if (fs.existsSync(buildDir)) {
                     if (fs.statSync(buildDir).isDirectory()) {
@@ -289,18 +324,22 @@ function main() {
             }
             build(root, buildDir)
             const configPath = path.join(root, options.config)
-            const config =
-                yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
-            config.include.forEach(redirect => {
-                let file = fs.createWriteStream(path.join(buildDir, redirect.path))
-                https.get(redirect.target, response => {
-                    if (response.errored) {
-                        console.log(response.errored)
-                    } else {
-                        response.pipe(file)
-                    }
-                })
-            });
+            if (options.local) {
+                console.log('option --local set: skipping included files')
+            } else {
+                const config =
+                    yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
+                config.include.forEach(redirect => {
+                    let file = fs.createWriteStream(path.join(buildDir, redirect.path))
+                    https.get(redirect.target, response => {
+                        if (response.errored) {
+                            console.log(response.errored)
+                        } else {
+                            response.pipe(file)
+                        }
+                    })
+                });
+            }
         })
 
     program.command("new")

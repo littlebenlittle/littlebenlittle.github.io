@@ -14,7 +14,7 @@
 
 <main>
 
-<section id="about" class="w3-container lit-row">
+<section id="about" class="w3-container">
     <div id="profile">
         <img
           id="profile-picture"
@@ -24,7 +24,12 @@
         >
         <div id="identity">
           <h1>{{{ about.name }}}</h1>
-          <h3><a href="https://pronouns.org/what-and-why">{{{ about.pronouns }}}</a></h3>
+          <h3><a
+            href="https://pronouns.org/what-and-why"
+            class="external"
+          >
+            {{{ about.pronouns }}}
+          </a></h3>
           <h3>{{{ about.tagline }}}</h3>
         </div>
     </div>
