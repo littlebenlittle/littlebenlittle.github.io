@@ -267,7 +267,7 @@ function build(srcdir: string, builddir: string) {
         .filter((file) => path.extname(file) == '.pug')
         .forEach((file) => {
             const data = fs.readFileSync(file, "utf8")
-            const { body, attributes } = fm<{meta: {file_ext: string}}>(data)
+            const { body, attributes } = fm<{ meta: { file_ext: string } }>(data)
             const result = pug.compile(body)(attributes)
             const out = outpath(srcdir, file, builddir, attributes.meta.file_ext)
             fs.writeFileSync(out, result)
