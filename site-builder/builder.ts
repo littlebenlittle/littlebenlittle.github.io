@@ -16,6 +16,7 @@ import hljs from 'highlight.js/lib/core'
 import rust from 'highlight.js/lib/languages/rust';
 import go from 'highlight.js/lib/languages/go';
 import ts from 'highlight.js/lib/languages/typescript';
+import * as pug from 'pug'
 
 let md = markdownit().use(markdownit_anchor);
 
@@ -241,10 +242,21 @@ function build(srcdir: string, builddir: string) {
         })
 
     files
+        .filter((file) => path.extname(file) == '.pug')
+        .forEach((file) => {
+            const data = fs.readFileSync(file, "utf8")
+            const { body, attributes } = fm<{meta: {file_ext: string}}>(data)
+            const result = pug.compile(body)(attributes)
+            const out = outpath(srcdir, file, builddir, attributes.meta.file_ext)
+            fs.writeFileSync(out, result)
+        })
+
+    files
         .filter((file) => {
             switch (path.extname(file)) {
                 case ".md":
                 case ".scss":
+                case ".pug":
                     return false
                 default:
                     return true
