@@ -11,7 +11,7 @@ meta:
     in the Boulder/Denver area and online anywhere!
 about:
   name: Ben Little
-  pronouns: he/they
+  pronouns: He/They
   tagline: Software Engineer, Mathematician, and Computer Scientist 
 resume:
   # TODO pull this from latest version of resume

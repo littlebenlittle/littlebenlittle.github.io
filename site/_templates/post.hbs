@@ -20,14 +20,10 @@
     <main>
         {{#if sensitive }}
         {{> content-warning }}
-        <section id="post-content">
-            {{{ content }}}
-        </section>
-        {{else}}
-        <section id="post-content">
-            {{{ content }}}
-        </section>
         {{/if}}
+        <section class="content">
+            {{{ content }}}
+        </section>
     </main>
 
     {{> footer }}

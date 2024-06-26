@@ -118,8 +118,6 @@ main {
     margin-right: auto;
 
     section#about {
-        padding-left: 2rem;
-        padding-right: 2rem;
         max-width: $max-width;
 
         #profile {
@@ -155,6 +153,17 @@ main {
                 }
 
                 ;
+            }
+
+            h3 {
+                a {
+                    text-decoration: none;
+                    color: $blueberry;
+                }
+
+                a:hover {
+                    color: $blueberry-dark;
+                }
             }
         }
 
@@ -237,6 +246,8 @@ main {
         max-width: 900px;
         margin-left: auto;
         margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
 
         a {
             color: $rust;
@@ -273,6 +284,8 @@ main {
     }
 
     section.content {
+        margin: 1rem;
+
         h1 {
             font-weight: 700;
         }
@@ -331,4 +344,13 @@ main {
             color: $blueberry-dark;
         }
     }
+}
+
+a.external {
+    // wikipedia-style external link
+    background-image: url('/assets/external.svg');
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: 0.7em;
+    padding-right: 0.9em;
 }
