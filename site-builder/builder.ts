@@ -4,7 +4,7 @@ import * as process from 'process'
 import { https } from 'follow-redirects'
 
 import * as handlebars from 'handlebars'
-import markdownit from 'markdown-it'
+import markdownit, { Token } from 'markdown-it'
 import markdownit_anchor from 'markdown-it-anchor'
 import fm from 'front-matter'
 import * as sass from 'sass'
@@ -18,7 +18,29 @@ import go from 'highlight.js/lib/languages/go';
 import ts from 'highlight.js/lib/languages/typescript';
 import * as pug from 'pug'
 
-let md = markdownit().use(markdownit_anchor);
+let md = markdownit().use(markdownit_anchor)
+md.core.ruler.push('external-links', state => {
+    for (const t of state.tokens) {
+        check_external_link(t)
+    }
+})
+
+function check_external_link(t: Token) {
+    if (t.children != null) {
+        for (const c of t.children) {
+            check_external_link(c)
+        }
+    } else if (t.type === 'link_open') {
+        const href = t.attrGet("href")
+        if (href == null) {
+            return
+        }
+        if (!href.startsWith("https://benlittle.dev") && (href.startsWith('http://') || href.startsWith("https://"))) {
+            console.log(`external link: ${href}`)
+            t.attrJoin("class", "external")
+        }
+    }
+}
 
 interface Site {
     files: string[],
