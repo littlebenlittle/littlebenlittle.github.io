@@ -285,7 +285,8 @@ function main() {
         .argument("[build]", "directory to build site into", "./build")
         .option("-c, --clean", "remove all files in build dir before build", true)
         .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
-        .action((root, buildDir, options: { clean: boolean, config: string }) => {
+        .option("-l, --local", "relative path to config from <root>", false)
+        .action((root, buildDir, options: { clean: boolean, config: string, local: boolean }) => {
             if (options.clean) {
                 if (fs.existsSync(buildDir)) {
                     if (fs.statSync(buildDir).isDirectory()) {
@@ -301,18 +302,22 @@ function main() {
             }
             build(root, buildDir)
             const configPath = path.join(root, options.config)
-            const config =
-                yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
-            config.include.forEach(redirect => {
-                let file = fs.createWriteStream(path.join(buildDir, redirect.path))
-                https.get(redirect.target, response => {
-                    if (response.errored) {
-                        console.log(response.errored)
-                    } else {
-                        response.pipe(file)
-                    }
-                })
-            });
+            if (options.local) {
+                console.log('option --local set: skipping included files')
+            } else {
+                const config =
+                    yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
+                config.include.forEach(redirect => {
+                    let file = fs.createWriteStream(path.join(buildDir, redirect.path))
+                    https.get(redirect.target, response => {
+                        if (response.errored) {
+                            console.log(response.errored)
+                        } else {
+                            response.pipe(file)
+                        }
+                    })
+                });
+            }
         })
 
     program.command("new")
