@@ -1,4 +1,11 @@
-FROM docker.io/library/node:21
+# for when canonical finally handles release upgrade to 22.04
+# and podman goes to v4...
+# FROM docker.io/library/node:21
+# RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
+#     --mount=target=/var/cache/apt,type=cache,sharing=locked \
+# RUN apt-get update && apt-get install -y graphviz
+
+FROM localhost/node-graphviz:latest
 
 WORKDIR /usr/src/site-builder
 COPY package.json package-lock.json .
