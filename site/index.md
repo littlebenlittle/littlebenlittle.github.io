@@ -1,18 +1,15 @@
 ---
 title: Ben Little
 template: index.hbs 
-date: 2024-01-29
+date: 2024-06-27
 meta:
   description: >-
-    I'm a software engineer who's obsessed with building simple,
-    correct, and understandable applications. My number one goal
-    is to help people not only use but also understand computers.
-    I offer personal and business consulting services in-person
-    in the Boulder/Denver area and online anywhere!
+    A software engineer and mathematician obsessed with building simple,
+    correct, and understandable applications.
 about:
   name: Ben Little
   pronouns: He/They
-  tagline: Software Engineer, Mathematician, and Computer Scientist 
+  tagline: Software Engineer and Mathematician
 resume:
   # TODO pull this from latest version of resume
   excerpt: >-
