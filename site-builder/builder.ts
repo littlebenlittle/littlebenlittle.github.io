@@ -3,22 +3,27 @@ import * as fs from 'fs'
 import * as process from 'process'
 import { https } from 'follow-redirects'
 
-import * as handlebars from 'handlebars'
 import markdownit, { Token } from 'markdown-it'
 import markdownit_anchor from 'markdown-it-anchor'
+import highlightjs from 'markdown-it-highlightjs'
+
+import * as handlebars from 'handlebars'
 import fm from 'front-matter'
 import * as sass from 'sass'
 import { Command } from 'commander'
 import * as uuid from 'uuid'
 import * as yaml from 'yaml'
 import * as cheerio from 'cheerio'
-import hljs from 'highlight.js/lib/core'
-import rust from 'highlight.js/lib/languages/rust';
-import go from 'highlight.js/lib/languages/go';
-import ts from 'highlight.js/lib/languages/typescript';
+// import hljs from 'highlight.js/lib/core'
+// import rust from 'highlight.js/lib/languages/rust';
+// import go from 'highlight.js/lib/languages/go';
+// import ts from 'highlight.js/lib/languages/typescript';
 import * as pug from 'pug'
 
-let md = markdownit().use(markdownit_anchor)
+let md = markdownit()
+    .use(markdownit_anchor)
+    .use(highlightjs)
+
 md.core.ruler.push('external-links', state => {
     for (const t of state.tokens) {
         check_external_link(t)
@@ -154,25 +159,26 @@ function compilePageSource(src: PageSource, globals: Globals): string {
     const view = { globals, ...src.attributes }
     const markdown = handlebars.compile(src.body)(view)
     const content = md.render(markdown)
-    const $ = cheerio.load(content)
-    $('code.language-rs').each((i, el) => {
-        const code = $(el).text()
-        const hl = hljs.highlight(code, { language: 'rust' })
-        $(el).html(hl.value)
-    })
-    $('code.language-go').each((i, el) => {
-        const code = $(el).text()
-        const hl = hljs.highlight(code, { language: 'go' })
-        $(el).html(hl.value)
-    })
-    $('code.language-ts').each((i, el) => {
-        const code = $(el).text()
-        const hl = hljs.highlight(code, { language: 'ts' })
-        $(el).html(hl.value)
-    })
+    // const $ = cheerio.load(content)
+    // $('code.language-rs').each((i, el) => {
+    //     const code = $(el).text()
+    //     const hl = hljs.highlight(code, { language: 'rust' })
+    //     $(el).html(hl.value)
+    // })
+    // $('code.language-go').each((i, el) => {
+    //     const code = $(el).text()
+    //     const hl = hljs.highlight(code, { language: 'go' })
+    //     $(el).html(hl.value)
+    // })
+    // $('code.language-ts').each((i, el) => {
+    //     const code = $(el).text()
+    //     const hl = hljs.highlight(code, { language: 'ts' })
+    //     $(el).html(hl.value)
+    // })
     const template = globals.templates[src.attributes.template]
     if (!template) throw `no template ${src.attributes.template}`
-    const html = template({ content: $.html(), ...view })
+    // const html = template({ content: $.html(), ...view })
+    const html = template({ content, ...view })
     return html
 }
 
@@ -292,9 +298,9 @@ function build(srcdir: string, builddir: string) {
 }
 
 function main() {
-    hljs.registerLanguage('rust', rust)
-    hljs.registerLanguage('go', go)
-    hljs.registerLanguage('ts', ts)
+    // hljs.registerLanguage('rust', rust)
+    // hljs.registerLanguage('go', go)
+    // hljs.registerLanguage('ts', ts)
 
     const program = new Command()
     program

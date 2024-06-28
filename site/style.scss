@@ -325,14 +325,19 @@ main {
         }
 
         pre {
-            color: $white;
-            background-color: $char;
-            border: $smoke;
-            border-width: 3px;
-            border-radius: 3px;
-            padding: $code-block-padding;
-            overflow: scroll;
-            tab-size: 32px;
+            @media(min-width: $transition-screen-width) {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            // color: $white;
+            // background-color: $char;
+            // border: $smoke;
+            // border-width: 3px;
+            // border-radius: 3px;
+            // padding: $code-block-padding;
+            // overflow: scroll;
+            // tab-size: 32px;
         }
 
         a {

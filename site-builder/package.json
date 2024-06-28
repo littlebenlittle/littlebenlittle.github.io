@@ -19,6 +19,7 @@
     "highlight.js": "^11.9.0",
     "markdown-it": "^14.0.0",
     "markdown-it-anchor": "^9.0.1",
+    "markdown-it-highlightjs": "^4.1.0",
     "pug": "^3.0.3",
     "sass": "^1.70.0",
     "uuid": "^9.0.1",
