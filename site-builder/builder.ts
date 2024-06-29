@@ -7,6 +7,8 @@ import markdownit, { Token } from 'markdown-it'
 import markdownit_anchor from 'markdown-it-anchor'
 import highlightjs from 'markdown-it-highlightjs'
 
+import * as graphviz from '@ts-graphviz/adapter'
+
 import * as handlebars from 'handlebars'
 import fm from 'front-matter'
 import * as sass from 'sass'
@@ -19,6 +21,7 @@ import * as cheerio from 'cheerio'
 // import go from 'highlight.js/lib/languages/go';
 // import ts from 'highlight.js/lib/languages/typescript';
 import * as pug from 'pug'
+import { RuleBlock } from 'markdown-it/lib/parser_block'
 
 let md = markdownit()
     .use(markdownit_anchor)
@@ -46,6 +49,42 @@ function check_external_link(t: Token) {
         }
     }
 }
+
+if (!fs.existsSync('./build/assets')) fs.mkdirSync('./build/assets', { recursive: true })
+md.core.ruler.push('graphviz', (state) => {
+    for (var i = 0; i < state.tokens.length; i++) {
+        const token = state.tokens[i]
+        if (token.type === 'fence' && token.tag === 'code' && token.info === 'dot') {
+            graphviz.toFile(token.content, './build/assets/test.svg', { format: 'svg' })
+            token.type = 'graphviz'
+        }
+    }
+})
+
+md.renderer.rules['graphviz'] = (tokens, idx) => {
+    const t = tokens[idx]
+    return `<img src="/assets/test.svg" /><pre><code class="hljs language-dot">${t.content}</code></pre>`
+}
+
+// md.block.ruler.push('graphviz-generator', (state, start, end, silent) => {
+// md.core.ruler.push('graphviz-generator', (state) => {
+//     if (state.tokens.length === 0) { return false }
+//     const token = state.tokens[0]
+//     if (!token.map) { return false }
+//     console.log(token)
+//     if (token.tag === 'code' && token.info === 'dot') {
+//         graphviz.toFile(token.content, "./build/assets/test.svg", { format: "svg" })
+//         token.type = 'inline'
+//         token.block = false
+//         token.tag = 'img'
+//         token.block = true
+//         token.info = ""
+//         token.attrSet("src", "assets/test.svg")
+//         token.map = [token.map[0], token.map[0] + 1]
+//         return true
+//     }
+//     return false
+// })
 
 interface Site {
     files: string[],
@@ -254,10 +293,12 @@ function build(srcdir: string, builddir: string) {
         fs.writeFileSync(out, html)
     }
 
+    const blogDir = path.join(builddir, 'blog')
+    if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true })
     for (const src of blogPostSources) {
         console.log(`compiling ${src.file}`)
         const html = compilePageSource(src, globals)
-        const out = path.join(builddir, 'blog', `${src.attributes.id}.html`)
+        const out = path.join(blogDir, `${src.attributes.id}.html`)
         fs.writeFileSync(out, html)
     }
 
