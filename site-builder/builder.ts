@@ -8,6 +8,8 @@ import markdownit_anchor from 'markdown-it-anchor'
 import highlightjs from 'markdown-it-highlightjs'
 
 import * as graphviz from '@ts-graphviz/adapter'
+import murmurhash from 'murmurhash'
+import * as base64 from 'base-64'
 
 import * as handlebars from 'handlebars'
 import fm from 'front-matter'
@@ -22,6 +24,7 @@ import * as cheerio from 'cheerio'
 // import ts from 'highlight.js/lib/languages/typescript';
 import * as pug from 'pug'
 import { RuleBlock } from 'markdown-it/lib/parser_block'
+import { randomInt } from 'crypto'
 
 let md = markdownit()
     .use(markdownit_anchor)
@@ -50,7 +53,9 @@ function check_external_link(t: Token) {
     }
 }
 
+// TODO this is a hack
 if (!fs.existsSync('./build/assets')) fs.mkdirSync('./build/assets', { recursive: true })
+
 md.core.ruler.push('graphviz', (state) => {
     for (var i = 0; i < state.tokens.length; i++) {
         const token = state.tokens[i]
@@ -62,9 +67,14 @@ md.core.ruler.push('graphviz', (state) => {
 })
 
 const code_snippet = pug.compileFile('./site/_templates/pug/code-snippet.pug')
+
 md.renderer.rules['graphviz'] = (tokens, idx) => {
     const t = tokens[idx]
-    const snip = code_snippet({code: t.content, language: 'dot'})
+    const snip = code_snippet({
+        code: t.content,
+        language: 'dot',
+        id: murmurhash.v3(base64.encode(t.content), 42069),
+    })
     return `<img src="/assets/test.svg" />${snip}`
 }
 
