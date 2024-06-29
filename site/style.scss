@@ -359,3 +359,53 @@ a.external {
     background-size: 0.7em;
     padding-right: 0.9em;
 }
+
+.code-snippet {
+    padding-top: 1rem;
+    pre {
+        transition: height 0.5s;
+        overflow: hidden;
+    }
+
+    input {
+        visibility: hidden;
+        position: absolute;
+        opacity: 0;
+    }
+
+    pre {
+        // transform: scaleY(0);
+        height: 0;
+        // transform-origin: top;
+        // transition: transform 1s;
+    }
+
+    label {
+        border-style: solid;
+        border-width: 3px;
+        border-color: $smoke;
+        background-color: $char;
+        width: 8rem;
+        display: flex;
+        >* {
+            margin: auto;
+        }
+    }
+
+    .hide {
+        display: none;
+    }
+
+    input:checked~label .show {
+        display: none;
+    }
+
+    input:checked~label .hide {
+        display: block;
+    }
+
+    input:checked~pre {
+        // transform: scaleY(1);
+        height: auto;
+    }
+}

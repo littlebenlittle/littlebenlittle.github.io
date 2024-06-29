@@ -61,30 +61,12 @@ md.core.ruler.push('graphviz', (state) => {
     }
 })
 
+const code_snippet = pug.compileFile('./site/_templates/pug/code-snippet.pug')
 md.renderer.rules['graphviz'] = (tokens, idx) => {
     const t = tokens[idx]
-    return `<img src="/assets/test.svg" /><pre><code class="hljs language-dot">${t.content}</code></pre>`
+    const snip = code_snippet({code: t.content, language: 'dot'})
+    return `<img src="/assets/test.svg" />${snip}`
 }
-
-// md.block.ruler.push('graphviz-generator', (state, start, end, silent) => {
-// md.core.ruler.push('graphviz-generator', (state) => {
-//     if (state.tokens.length === 0) { return false }
-//     const token = state.tokens[0]
-//     if (!token.map) { return false }
-//     console.log(token)
-//     if (token.tag === 'code' && token.info === 'dot') {
-//         graphviz.toFile(token.content, "./build/assets/test.svg", { format: "svg" })
-//         token.type = 'inline'
-//         token.block = false
-//         token.tag = 'img'
-//         token.block = true
-//         token.info = ""
-//         token.attrSet("src", "assets/test.svg")
-//         token.map = [token.map[0], token.map[0] + 1]
-//         return true
-//     }
-//     return false
-// })
 
 interface Site {
     files: string[],

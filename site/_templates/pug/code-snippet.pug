@@ -1,0 +1,8 @@
+.code-snippet
+  input#toggle(type="checkbox", name="show-code")
+  label(for="toggle")
+    span.show Show Code
+    span.hide Hide Code
+  pre
+    code(class="hljs language-" + language)= code
+  
