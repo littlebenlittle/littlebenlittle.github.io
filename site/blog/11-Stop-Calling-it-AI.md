@@ -12,12 +12,6 @@ excerpt: >-
   of machines. To that end, we have been sold a big fat lie.
 ---
 
-# {{{ title }}}
-
-_{{{ excerpt }}}_
-
-_Posted {{{ humanDate date }}}_
-
 ## A Brief History of Automated Reasoning
 
 The computer science community has been talking

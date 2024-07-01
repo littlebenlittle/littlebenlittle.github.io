@@ -11,12 +11,6 @@ excerpt: >-
   the internet.
 ---
 
-# {{{ title }}}
-
-_{{{ excerpt }}}_
-
-_Posted {{{ humanDate date }}}_
-
 ## WASM and WASI
 
 There are have been many attempts to create safer ways of

@@ -2,6 +2,7 @@
 id: 8070fb83-af47-44fb-b891-9671e2d59af8
 title: "Our Data is Who We Are"
 date: 2024-03-14T17:27:22.944Z
+modified: 2024-07-01
 template: post.hbs
 excerpt: >-
   Our senses are the beginning of how we form
@@ -13,10 +14,6 @@ excerpt: >-
   the relationship between the data we use and
   how it affects our perception.
 ---
-
-# {{{ title }}}
-
-_Posted {{{ humanDate date }}}_
 
 ## Data is What Makes Us Who We Are
 
@@ -128,7 +125,7 @@ questions we ask ourselves should be:
 
 Data is always a lossy representation of reality. Even our
 body can't keep track of every little input it receives from
-our phyiscal sense. We can't expect much more from our little
+our physical sense. We can't expect much more from our little
 computers with their puny terabytes of data. Choosing how to
 represent and use data is philisophical and moral pursuit.
 Don't take it lightly!

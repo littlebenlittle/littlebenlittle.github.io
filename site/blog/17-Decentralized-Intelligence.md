@@ -12,12 +12,6 @@ excerpt: >-
   sense-making.
 ---
 
-# {{{ title }}}
-
-_{{{ excerpt }}}_
-
-_Posted {{{ humanDate date }}}_
-
 ## Requirements for Automated Data Accounting
 
 What if we thought about our little devices as tools for
