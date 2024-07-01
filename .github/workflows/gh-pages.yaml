@@ -1,8 +1,6 @@
 name: Github Pages
 
 on:
-  push:
-    branches: [$default-branch]
   workflow_dispatch:
 
 permissions:
@@ -32,15 +30,15 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     - name: Install Dependencies
-      run: cd site-builder && npm clean-install
+      run: cd builder && npm clean-install
     - name: Compile TypeScript
-      run: cd site-builder && npx tsc
+      run: cd builder && npx tsc
     - name: Build Site
-      run: node site-builder/builder.js build ./site ./build
+      run: node builder/builder.js build
     - name: Upload Pages Artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: build/
+        path: dist/
 
   deploy:
     needs: build
