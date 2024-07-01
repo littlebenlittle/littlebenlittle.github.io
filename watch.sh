@@ -2,7 +2,7 @@
 
 function watch_site {
     while inotifywait -r -e modify,create ./site
-        do ./gen.sh build --local ./site ./build
+        do ./gen.sh build --clean --local ./site ./build
     done
 }
 
