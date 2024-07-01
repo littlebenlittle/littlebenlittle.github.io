@@ -13,10 +13,6 @@ snips:
   go: 04-Types-and-Logic/go
 ---
 
-# {{{ title }}}
-
-> _{{{ excerpt }}}_
-
 ## Type Systems are Logic
 
 The [Curry-Howard-Lambek-Scott][1] correspondence famously shows

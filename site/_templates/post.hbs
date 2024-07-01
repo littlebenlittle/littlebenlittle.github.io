@@ -18,6 +18,12 @@
     {{> header }}
 
     <main>
+        <section class="overview">
+            <h1>{{{ title }}}</h1>
+            {{#if excerpt }}
+            <p class="excerpt"><em>{{{ excerpt }}}</em></p>
+            {{/if}}
+        </section>
         {{#if sensitive }}
         {{> content-warning }}
         {{/if}}

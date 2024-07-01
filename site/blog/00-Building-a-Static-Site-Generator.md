@@ -12,10 +12,6 @@ excerpt: >-
   data.
 ---
 
-# {{{ title }}}
-
-> _{{{ excerpt }}}_
-
 ## What is a Static Site Generator?
 
 At a high level, a static site generator is responsible for taking

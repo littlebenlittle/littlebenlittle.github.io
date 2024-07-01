@@ -11,8 +11,6 @@ about:
 
 [Home](/)
 
-[Hire Me](/hire.html)
-
 [Blog](/blog)
 
 [Contact](/contact.html)

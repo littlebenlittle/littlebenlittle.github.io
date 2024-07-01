@@ -2,6 +2,7 @@
 id: 1661a766-3872-4209-9d72-74660834bf2d
 title: "Networks and Logic"
 date: 2024-03-12T13:00:00.000Z
+modified: 2024-07-01
 template: post.hbs
 excerpt: >-
   Computer network design is challenging because
@@ -13,12 +14,6 @@ excerpt: >-
   talk about how logical formula emerge from this
   model in the form of relational semantics.
 ---
-
-# {{{ title }}}
-
-_{{{ excerpt }}}_
-
-_Posted on {{{humanDate date }}}_
 
 ## The OSI Model
 
@@ -40,19 +35,19 @@ not provide reliable transport, it is possible that bits will
 be lost or flipped during transmission. So layer 2 protocols
 usually implement some form of error correction, either by
 retransmitting data that was initally transmitted incorrectly,
-or by using information-theoretic techniques.
+or by using [information-theoretic techniques][ecc].
 
 Layer 2 protocols are _broadcast_ protocols in the sense that
 any system connected on the phyiscal link receives the data.
 The most common layer 2 protocol is ethernet, and ethernet
-makes use of MAC addresses to inform the receiver if the data
+makes use of [MAC addresses][mac] to inform the receiver if the data
 was meant for them. However this is more of a recommendation
 than any hard rule. Most network interface cards can be set
-to "promiscuous mode" where _all_ data is passed to the
+to [promiscuous mode][promiscuous] where _all_ data is passed to the
 operating system. This is how network monitoring tools like
 Wireshark work.
 
-Some protocols like ARP don't go any further than layer 2. The
+Some protocols like [ARP][arp] or [STP][stp] don't go any further than layer 2. The
 protocol stack ends at layer 2 because the task doesn't need
 any more sophistication than sending and receiving a single
 chunk of data! However layer 3 protocols like the Internet
@@ -85,9 +80,9 @@ addresses are defined in the IPv4 and IPv6 specifications.
 
 Most commercial computers are not configured to relay packets. If
 they receive an ethernet frame with their own MAC address but its
-encapsulated IP packet has a destination other their own IP address,
+encapsulated IP packet has a destination other than one of their own assigned IP addresses,
 they just drop the packet. However most consumer operating systems
-provide the root user with the ability to enable IP forwarding,
+provide the root user with the ability to enable [IP forwarding][ip-fwd],
 turning them into an internet _router_. When a router receives
 an ethernet frame with its own MAC address but a different
 IP address, it checks its own _routing table_ for where it should
@@ -98,8 +93,7 @@ encapsulates the same IP packet, but with some minor changes like
 decrementing the Time-To-Live header by 1. If a router receives
 an IP packet for which it has no next route, the IP
 specification designates that the the router should reply
-to the sender with an ICMP (another layer 3 protocol) packet
-designating "no route to host".
+to the sender with an [ICMP][icmp] packet designating "no route to host".
 
 So IP is powerful in that provides routing of packets between
 systems that don't share a direct physical link. It is still
@@ -180,7 +174,7 @@ closure_ of the physical link relation.
 So a specification of a physical network is well-described by
 first-order logic. We can say things like
 
-```
+```text
 Point-to-Point Network:
 A and B are connected by L
 
@@ -214,7 +208,7 @@ For a packet to reach its destination, there must be a relay chain
 to that destination and each hop must be a router whose routing
 policy moves the packet to the next hop. Formally
 
-```
+```text
 A can send a packet to B if
 There exists R such that:
 A and B are relayed by R
@@ -244,7 +238,7 @@ NAT traversal for IPv4.
 Let's consider how a network service running on an internal
 network can be accessed by a computer on the public internet.
 
-```
+```text
 Given:
 A is listening on /ip4/10.0.0.50/tcp/80
 B sends a packet dst /ip4/5.6.7.8/tcp/80 src /ip4/1.2.3.4/tcp/54321
@@ -275,3 +269,11 @@ It's surprising that first-order logic with transitive
 closure--something that arsises in the very first layer--is
 really the limiting source of complexity. Everything else is
 just propositional logic formulas related to packet headers.
+
+[ecc]: https://en.wikipedia.org/wiki/Error_detection_and_correction
+[mac]: https://en.wikipedia.org/wiki/MAC_address
+[promiscuous]: https://en.wikipedia.org/wiki/Promiscuous_mode
+[arp]: https://en.wikipedia.org/wiki/Address_Resolution_Protocol
+[stp]: https://en.wikipedia.org/wiki/Spanning_Tree_Protocol
+[ip-fwd]: https://linuxconfig.org/how-to-turn-on-off-ip-forwarding-in-linux
+[icmp]: https://www.cloudflare.com/learning/ddos/glossary/internet-control-message-protocol-icmp/

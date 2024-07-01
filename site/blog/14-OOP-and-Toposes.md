@@ -14,12 +14,6 @@ excerpt: >-
   needed to reason about execution become intractable.
 ---
 
-# {{{ title }}}
-
-_{{{ excerpt }}}_
-
-_Posted {{{ humanDate date }}}_
-
 ## Context Matters: Responding Differently to the Same Input
 
 Consider a very simple and contrived game.
