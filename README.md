@@ -2,9 +2,10 @@
 
 ### TODOs
 
+- [ ] consolidate scripts
 - [ ] fix local build system so it doesn't create so many container images
 - [ ] "show code" for larger blocks
-- [ ] add md extension to compile graphs
+- [x] add md extension to compile graphs
 - [ ] add md extension to compile math
 - [x] use `markdown-it` plugin for highlightjs
 - [ ] refactor project structure

@@ -19,6 +19,89 @@ import * as uuid from 'uuid'
 import * as yaml from 'yaml'
 import * as pug from 'pug'
 
+let BUILD_DIR: string
+let ASSETS: string
+let code_snippet: pug.compileTemplate
+
+const program = new Command()
+
+program
+    .name("site-builder")
+    .description("static site generator")
+
+program.command("build")
+    .description("build the site")
+    .argument("[root]", "root directory for site content", "./site")
+    .argument("[dist]", "directory to build site into", "./dist")
+    .option("-c, --clean", "remove all files in build dir before build", true)
+    .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
+    .option("-l, --local", "relative path to config from <root>", false)
+    .action((root, buildDir, options: { clean: boolean, config: string, local: boolean }) => {
+        BUILD_DIR = buildDir
+        if (options.clean) {
+            if (fs.existsSync(BUILD_DIR)) {
+                if (fs.statSync(BUILD_DIR).isDirectory()) {
+                    for (const entry of fs.readdirSync(BUILD_DIR)) {
+                        fs.rmSync(path.join(BUILD_DIR, entry), { recursive: true, force: true })
+                    }
+                } else {
+                    throw `not a directory: ${BUILD_DIR}`
+                }
+            } else {
+                fs.mkdirSync(BUILD_DIR)
+            }
+        }
+        code_snippet = pug.compileFile(path.join(root, "_templates", "pug", "code-snippet.pug"))
+        build(root)
+        const configPath = path.join(root, options.config)
+        if (options.local) {
+            console.log('option --local set: skipping included files')
+        } else {
+            const config =
+                yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
+            config.include.forEach(redirect => {
+                let file = fs.createWriteStream(path.join(BUILD_DIR, redirect.path))
+                https.get(redirect.target, response => {
+                    if (response.errored) {
+                        console.log(response.errored)
+                    } else {
+                        response.pipe(file)
+                    }
+                })
+            });
+        }
+    })
+
+program.command("new")
+    .description("format metadata for a new post")
+    .argument("[root]", "root directory for site content", "./site")
+    .option("-t, --title [title]", "post title", "My Latest Post")
+    .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
+    .action((root, options: { config: string, title: string }) => {
+        const configPath = path.join(root, options.config)
+        const config =
+            yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
+        const metadata = {
+            id: uuid.v4(),
+            title: options.title,
+            date: new Date(Date.now()).toISOString(),
+            template: config.blogTemplate,
+        }
+        const filePath = path.join(root, "blog", `${options.title.replaceAll(" ", "-")}.md`)
+        fs.writeFileSync(filePath, `---\n${yaml.stringify(metadata)}---\n`)
+    })
+
+program.command("compile")
+    .description("compile a source file")
+    .argument("[root]", "path to site root")
+    .argument("[src]", "path to source file")
+    .action((root, src, options) => {
+        const pageSource = loadPageSource(src, root)
+        const site = indexSources(root)
+        const html = compilePageSource(pageSource, site.globals)
+        console.log(html)
+    })
+
 let md = markdownit()
     .use(markdownit_anchor)
     .use(highlightjs)
@@ -45,22 +128,17 @@ function check_external_link(t: Token) {
     }
 }
 
-// TODO this is a hack
-if (!fs.existsSync('./build/assets')) fs.mkdirSync('./build/assets', { recursive: true })
-
 md.core.ruler.push('graphviz', (state) => {
     for (var i = 0; i < state.tokens.length; i++) {
         const token = state.tokens[i]
         if (token.type === 'fence' && token.tag === 'code' && token.info === 'dot') {
-            // TODO handle build dir properly
             token.type = 'graphviz'
             token.info = path.join("/assets", `${cid(token.content)}.svg`)
-            graphviz.toFile(token.content, path.join("build", token.info), { format: 'svg' })
+            graphviz.toFile(token.content, path.join(BUILD_DIR, token.info), { format: 'svg' })
         }
     }
 })
 
-const code_snippet = pug.compileFile('./site/_templates/pug/code-snippet.pug')
 
 function cid(content: string): string {
     return murmurhash.v3(base64.encode(content), 42069).toString()
@@ -244,7 +322,9 @@ function indexSources(srcdir: string): Site {
     return { files, pageSources, regularPageSources, blogPostSources, globals }
 }
 
-function build(srcdir: string, builddir: string) {
+function build(srcdir: string) {
+    ASSETS = path.join(BUILD_DIR, "assets")
+    if (!fs.existsSync(ASSETS)) fs.mkdirSync(ASSETS, { recursive: true })
     const { files, pageSources, regularPageSources, blogPostSources, globals } = indexSources(srcdir)
     handlebars.registerHelper("page", (id, field) => {
         const page = pageSources.find(({ attributes }) => attributes.id == id)
@@ -262,11 +342,11 @@ function build(srcdir: string, builddir: string) {
     for (const src of regularPageSources) {
         console.log(`compiling ${src.file}`)
         const html = compilePageSource(src, globals)
-        const out = outpath(srcdir, src.file, builddir, 'html')
+        const out = outpath(srcdir, src.file, BUILD_DIR, 'html')
         fs.writeFileSync(out, html)
     }
 
-    const blogDir = path.join(builddir, 'blog')
+    const blogDir = path.join(BUILD_DIR, 'blog')
     if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true })
     for (const src of blogPostSources) {
         console.log(`compiling ${src.file}`)
@@ -279,7 +359,7 @@ function build(srcdir: string, builddir: string) {
         .filter((file) => path.extname(file) == '.scss')
         .forEach((file) => {
             const css = sass.compile(file).css
-            const out = outpath(srcdir, file, builddir, 'css')
+            const out = outpath(srcdir, file, BUILD_DIR, 'css')
             fs.writeFileSync(out, css)
         })
 
@@ -289,7 +369,7 @@ function build(srcdir: string, builddir: string) {
             const data = fs.readFileSync(file, "utf8")
             const { body, attributes } = fm<{ meta: { file_ext: string } }>(data)
             const result = pug.compile(body)(attributes)
-            const out = outpath(srcdir, file, builddir, attributes.meta.file_ext)
+            const out = outpath(srcdir, file, BUILD_DIR, attributes.meta.file_ext)
             fs.writeFileSync(out, result)
         })
 
@@ -304,7 +384,7 @@ function build(srcdir: string, builddir: string) {
                     return true
             }
         }).forEach((file) => {
-            const out = path.join(builddir, path.relative(srcdir, file))
+            const out = path.join(BUILD_DIR, path.relative(srcdir, file))
             const dir = path.dirname(out)
             if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
             fs.copyFileSync(file, out)
@@ -312,81 +392,6 @@ function build(srcdir: string, builddir: string) {
 }
 
 function main() {
-    const program = new Command()
-    program
-        .name("site-builder")
-        .description("static site generator")
-
-    program.command("build")
-        .description("build the site")
-        .argument("[root]", "root directory for site content", "./site")
-        .argument("[build]", "directory to build site into", "./build")
-        .option("-c, --clean", "remove all files in build dir before build", true)
-        .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
-        .option("-l, --local", "relative path to config from <root>", false)
-        .action((root, buildDir, options: { clean: boolean, config: string, local: boolean }) => {
-            if (options.clean) {
-                if (fs.existsSync(buildDir)) {
-                    if (fs.statSync(buildDir).isDirectory()) {
-                        for (const entry of fs.readdirSync(buildDir)) {
-                            fs.rmSync(path.join(buildDir, entry), { recursive: true, force: true })
-                        }
-                    } else {
-                        throw `not a directory: ${buildDir}`
-                    }
-                } else {
-                    fs.mkdirSync(buildDir)
-                }
-            }
-            build(root, buildDir)
-            const configPath = path.join(root, options.config)
-            if (options.local) {
-                console.log('option --local set: skipping included files')
-            } else {
-                const config =
-                    yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
-                config.include.forEach(redirect => {
-                    let file = fs.createWriteStream(path.join(buildDir, redirect.path))
-                    https.get(redirect.target, response => {
-                        if (response.errored) {
-                            console.log(response.errored)
-                        } else {
-                            response.pipe(file)
-                        }
-                    })
-                });
-            }
-        })
-
-    program.command("new")
-        .description("format metadata for a new post")
-        .argument("[root]", "root directory for site content", "./site")
-        .option("-t, --title [title]", "post title", "My Latest Post")
-        .option("-f, --config [path]", "relative path to config from <root>", "./_config.yaml")
-        .action((root, options: { config: string, title: string }) => {
-            const configPath = path.join(root, options.config)
-            const config =
-                yaml.parse(fs.readFileSync(configPath, 'utf8')) as Config
-            const metadata = {
-                id: uuid.v4(),
-                title: options.title,
-                date: new Date(Date.now()).toISOString(),
-                template: config.blogTemplate,
-            }
-            const filePath = path.join(root, "blog", `${options.title.replaceAll(" ", "-")}.md`)
-            fs.writeFileSync(filePath, `---\n${yaml.stringify(metadata)}---\n`)
-        })
-
-    program.command("compile")
-        .description("compile a source file")
-        .argument("[root]", "path to site root")
-        .argument("[src]", "path to source file")
-        .action((root, src, options) => {
-            const pageSource = loadPageSource(src, root)
-            const site = indexSources(root)
-            const html = compilePageSource(pageSource, site.globals)
-            console.log(html)
-        })
     if (process.argv.length < 3) {
         program.help()
     } else {
