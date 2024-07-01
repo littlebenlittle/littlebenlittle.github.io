@@ -362,6 +362,7 @@ a.external {
 
 .code-snippet {
     padding-top: 1rem;
+
     pre {
         transition: height 0.5s;
         overflow: hidden;
@@ -387,6 +388,7 @@ a.external {
         background-color: $char;
         width: 8rem;
         display: flex;
+
         >* {
             margin: auto;
         }
@@ -394,6 +396,11 @@ a.external {
 
     .hide {
         display: none;
+    }
+    
+    label {
+        margin: auto;
+        margin-right: 2rem;
     }
 
     input:checked~label .show {
@@ -408,4 +415,24 @@ a.external {
         // transform: scaleY(1);
         height: auto;
     }
+}
+
+table {
+    margin-left: 1rem;
+}
+
+table,
+th,
+td {
+    border: 1px solid;
+}
+
+th,
+td {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+table {
+    border-collapse: collapse;
 }
