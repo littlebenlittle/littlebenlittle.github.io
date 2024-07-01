@@ -2,6 +2,7 @@
 
 ### TODOs
 
+- [ ] fix local build system so it doesn't create so many container images
 - [ ] "show code" for larger blocks
 - [ ] add md extension to compile graphs
 - [ ] add md extension to compile math
