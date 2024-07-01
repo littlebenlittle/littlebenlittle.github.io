@@ -45,7 +45,7 @@ function serve {
 }
 
 function watch {
-    while inotifywait -e modify,create ./site-builder/builder.ts; do
+    while inotifywait -e modify,create -r ./site; do
         site-builder build "$@"
     done
 }
