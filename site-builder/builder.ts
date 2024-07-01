@@ -3,22 +3,26 @@ import * as fs from 'fs'
 import * as process from 'process'
 import { https } from 'follow-redirects'
 
-import * as handlebars from 'handlebars'
 import markdownit, { Token } from 'markdown-it'
 import markdownit_anchor from 'markdown-it-anchor'
+import highlightjs from 'markdown-it-highlightjs'
+
+import * as graphviz from '@ts-graphviz/adapter'
+import murmurhash from 'murmurhash'
+import * as base64 from 'base-64'
+
+import * as handlebars from 'handlebars'
 import fm from 'front-matter'
 import * as sass from 'sass'
 import { Command } from 'commander'
 import * as uuid from 'uuid'
 import * as yaml from 'yaml'
-import * as cheerio from 'cheerio'
-import hljs from 'highlight.js/lib/core'
-import rust from 'highlight.js/lib/languages/rust';
-import go from 'highlight.js/lib/languages/go';
-import ts from 'highlight.js/lib/languages/typescript';
 import * as pug from 'pug'
 
-let md = markdownit().use(markdownit_anchor)
+let md = markdownit()
+    .use(markdownit_anchor)
+    .use(highlightjs)
+
 md.core.ruler.push('external-links', state => {
     for (const t of state.tokens) {
         check_external_link(t)
@@ -36,10 +40,40 @@ function check_external_link(t: Token) {
             return
         }
         if (!href.startsWith("https://benlittle.dev") && (href.startsWith('http://') || href.startsWith("https://"))) {
-            console.log(`external link: ${href}`)
             t.attrJoin("class", "external")
         }
     }
+}
+
+// TODO this is a hack
+if (!fs.existsSync('./build/assets')) fs.mkdirSync('./build/assets', { recursive: true })
+
+md.core.ruler.push('graphviz', (state) => {
+    for (var i = 0; i < state.tokens.length; i++) {
+        const token = state.tokens[i]
+        if (token.type === 'fence' && token.tag === 'code' && token.info === 'dot') {
+            // TODO handle build dir properly
+            token.type = 'graphviz'
+            token.info = path.join("/assets", `${cid(token.content)}.svg`)
+            graphviz.toFile(token.content, path.join("build", token.info), { format: 'svg' })
+        }
+    }
+})
+
+const code_snippet = pug.compileFile('./site/_templates/pug/code-snippet.pug')
+
+function cid(content: string): string {
+    return murmurhash.v3(base64.encode(content), 42069).toString()
+}
+
+md.renderer.rules['graphviz'] = (tokens, idx) => {
+    const t = tokens[idx]
+    const snip = code_snippet({
+        code: t.content,
+        language: 'dot',
+        id: cid(`${t.map}${t.content}`),
+    })
+    return `<img src="${t.info}" />${snip}`
 }
 
 interface Site {
@@ -154,25 +188,9 @@ function compilePageSource(src: PageSource, globals: Globals): string {
     const view = { globals, ...src.attributes }
     const markdown = handlebars.compile(src.body)(view)
     const content = md.render(markdown)
-    const $ = cheerio.load(content)
-    $('code.language-rs').each((i, el) => {
-        const code = $(el).text()
-        const hl = hljs.highlight(code, { language: 'rust' })
-        $(el).html(hl.value)
-    })
-    $('code.language-go').each((i, el) => {
-        const code = $(el).text()
-        const hl = hljs.highlight(code, { language: 'go' })
-        $(el).html(hl.value)
-    })
-    $('code.language-ts').each((i, el) => {
-        const code = $(el).text()
-        const hl = hljs.highlight(code, { language: 'ts' })
-        $(el).html(hl.value)
-    })
     const template = globals.templates[src.attributes.template]
     if (!template) throw `no template ${src.attributes.template}`
-    const html = template({ content: $.html(), ...view })
+    const html = template({ content, ...view })
     return html
 }
 
@@ -248,10 +266,12 @@ function build(srcdir: string, builddir: string) {
         fs.writeFileSync(out, html)
     }
 
+    const blogDir = path.join(builddir, 'blog')
+    if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true })
     for (const src of blogPostSources) {
         console.log(`compiling ${src.file}`)
         const html = compilePageSource(src, globals)
-        const out = path.join(builddir, 'blog', `${src.attributes.id}.html`)
+        const out = path.join(blogDir, `${src.attributes.id}.html`)
         fs.writeFileSync(out, html)
     }
 
@@ -292,10 +312,6 @@ function build(srcdir: string, builddir: string) {
 }
 
 function main() {
-    hljs.registerLanguage('rust', rust)
-    hljs.registerLanguage('go', go)
-    hljs.registerLanguage('ts', ts)
-
     const program = new Command()
     program
         .name("site-builder")

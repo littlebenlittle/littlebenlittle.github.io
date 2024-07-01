@@ -2,6 +2,12 @@
 
 ### TODOs
 
+- [ ] fix local build system so it doesn't create so many container images
+- [ ] "show code" for larger blocks
+- [ ] add md extension to compile graphs
+- [ ] add md extension to compile math
+- [x] use `markdown-it` plugin for highlightjs
+- [ ] refactor project structure
 - [x] add "hire me" CTA beneath hero on home page
 - [ ] add smarter canonical links to builder
 - [ ] group posts in directories

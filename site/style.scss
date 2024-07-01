@@ -325,14 +325,19 @@ main {
         }
 
         pre {
-            color: $white;
-            background-color: $char;
-            border: $smoke;
-            border-width: 3px;
-            border-radius: 3px;
-            padding: $code-block-padding;
-            overflow: scroll;
-            tab-size: 32px;
+            @media(min-width: $transition-screen-width) {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            // color: $white;
+            // background-color: $char;
+            // border: $smoke;
+            // border-width: 3px;
+            // border-radius: 3px;
+            // padding: $code-block-padding;
+            // overflow: scroll;
+            // tab-size: 32px;
         }
 
         a {
@@ -353,4 +358,81 @@ a.external {
     background-repeat: no-repeat;
     background-size: 0.7em;
     padding-right: 0.9em;
+}
+
+.code-snippet {
+    padding-top: 1rem;
+
+    pre {
+        transition: height 0.5s;
+        overflow: hidden;
+    }
+
+    input {
+        visibility: hidden;
+        position: absolute;
+        opacity: 0;
+    }
+
+    pre {
+        // transform: scaleY(0);
+        height: 0;
+        // transform-origin: top;
+        // transition: transform 1s;
+    }
+
+    label {
+        border-style: solid;
+        border-width: 3px;
+        border-color: $smoke;
+        background-color: $char;
+        width: 8rem;
+        display: flex;
+
+        >* {
+            margin: auto;
+        }
+    }
+
+    .hide {
+        display: none;
+    }
+    
+    label {
+        margin: auto;
+        margin-right: 2rem;
+    }
+
+    input:checked~label .show {
+        display: none;
+    }
+
+    input:checked~label .hide {
+        display: block;
+    }
+
+    input:checked~pre {
+        // transform: scaleY(1);
+        height: auto;
+    }
+}
+
+table {
+    margin-left: 1rem;
+}
+
+table,
+th,
+td {
+    border: 1px solid;
+}
+
+th,
+td {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+table {
+    border-collapse: collapse;
 }
