@@ -24,7 +24,7 @@ import * as cheerio from 'cheerio'
 // import ts from 'highlight.js/lib/languages/typescript';
 import * as pug from 'pug'
 import { RuleBlock } from 'markdown-it/lib/parser_block'
-import { randomInt } from 'crypto'
+import { createDiffieHellman, randomInt } from 'crypto'
 
 let md = markdownit()
     .use(markdownit_anchor)
@@ -47,7 +47,6 @@ function check_external_link(t: Token) {
             return
         }
         if (!href.startsWith("https://benlittle.dev") && (href.startsWith('http://') || href.startsWith("https://"))) {
-            console.log(`external link: ${href}`)
             t.attrJoin("class", "external")
         }
     }
@@ -60,22 +59,28 @@ md.core.ruler.push('graphviz', (state) => {
     for (var i = 0; i < state.tokens.length; i++) {
         const token = state.tokens[i]
         if (token.type === 'fence' && token.tag === 'code' && token.info === 'dot') {
-            graphviz.toFile(token.content, './build/assets/test.svg', { format: 'svg' })
+            // TODO handle build dir properly
             token.type = 'graphviz'
+            token.info = path.join("/assets", `${cid(token.content)}.svg`)
+            graphviz.toFile(token.content, path.join("build", token.info), { format: 'svg' })
         }
     }
 })
 
 const code_snippet = pug.compileFile('./site/_templates/pug/code-snippet.pug')
 
+function cid(content: string): string {
+    return murmurhash.v3(base64.encode(content), 42069).toString()
+}
+
 md.renderer.rules['graphviz'] = (tokens, idx) => {
     const t = tokens[idx]
     const snip = code_snippet({
         code: t.content,
         language: 'dot',
-        id: murmurhash.v3(base64.encode(t.content), 42069),
+        id: cid(`${t.map}${t.content}`),
     })
-    return `<img src="/assets/test.svg" />${snip}`
+    return `<img src="${t.info}" />${snip}`
 }
 
 interface Site {
