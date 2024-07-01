@@ -13,7 +13,7 @@ about:
 
 # {{{ title }}}
 
-> _{{{ meta.description }}}_
+_{{{ meta.description }}}_
 
 ## Power and Privilege
 
