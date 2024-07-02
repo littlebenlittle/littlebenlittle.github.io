@@ -2,10 +2,25 @@
 <html>
 <head>
     <link rel="canonical" href="https://benlittle.dev" />
-    <!--TODO warn on title with more than 50 chars-->
     <title>{{ about.name }} | {{ about.tagline }}</title>
-    <!--TODO warn on description with more than 150 chars-->
     <meta name="description" content="{{ meta.description }}" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "email": "mailto:ben.little@benlittle.dev",
+        "image": "https://benlittle.dev/assets/profile.jpg",
+        "jobTitle": "Software Engineer and Mathematician",
+        "name": "{{ about.name }}",
+        "url": "https://benlittle.dev",
+        "alumniOf": [
+          "https://www.psu.edu/",
+          "https://www.colorado.edu"
+        ],
+        "gender": "masculine agender",
+      }
+    </script>
+    {{> head-common }}
     {{> head-common }}
 </head>
 <body>
