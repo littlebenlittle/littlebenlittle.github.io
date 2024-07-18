@@ -9,7 +9,7 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "email": "mailto:ben.little@benlittle.dev",
-        "image": "https://benlittle.dev/assets/profile.jpg",
+        "image": "https://benlittle.dev{{ about.picture }}",
         "jobTitle": "Software Engineer and Mathematician",
         "name": "{{ about.name }}",
         "url": "https://benlittle.dev",
@@ -33,7 +33,7 @@
     <div id="profile">
         <img
           id="profile-picture"
-          src="/assets/profile.jpg"
+          src="{{ about.picture }}"
           alt="Ben smiles for the camera"
         >
         <div id="identity">

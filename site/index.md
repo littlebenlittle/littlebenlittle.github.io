@@ -10,6 +10,7 @@ about:
   name: Ben Little
   pronouns: He/They
   tagline: Software Engineer and Mathematician
+  picture: /assets/profile.webp
 resume:
   # TODO pull this from latest version of resume
   excerpt: >-
