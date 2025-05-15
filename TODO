@@ -1,0 +1,6 @@
+Rebuild website with pug templates and up-to-date info
+
+Build (individual) pipelines for:
+- Static Website
+- Resume HTML & PDF
+- [x] Card PDF

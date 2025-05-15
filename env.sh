@@ -3,26 +3,64 @@
 NODE_IMAGE=docker.io/library/node:21
 CACHE_VOLUME=site-builder-cache
 
-function build {
-    ctr=$(buildah from "$NODE_IMAGE")
-    buildah run "$ctr" -- apt-get update
-    buildah run "$ctr" -- apt-get install -y graphviz
-    buildah commit "$ctr" localhost/node-graphviz
-    unset ctr
+# function build {
+#     local ctr
+#     ctr=$(buildah from "$NODE_IMAGE")
+#     buildah run "$ctr" -- apt-get update
+#     buildah run "$ctr" -- apt-get install -y graphviz
+#     buildah commit "$ctr" localhost/node-graphviz
+# }
+
+function build-html {
+    [ -z "$1" ] && echo "Need arg {cv,card}" && return
+    [ ! -d ./dist/www ] && mkdir -p -m 666 ./dist/www
+    podman run -ti --rm \
+        --name   gh.io_build-html-cv \
+        --volume ./dist/cv.js:/run/builder.js:ro,Z \
+        --volume ./builder/node_modules:/run/node_modules:ro,Z \
+        --volume ./"$1"/"$1".yaml:/run/data.yaml:ro,Z \
+        --volume ./"$1"/"$1".pug:/run/tmpl.pug:ro,Z \
+        --volume ./"$1"/"$1".scss:/run/style.scss:ro,Z \
+        --volume ./"$1"/includes:/run/includes:ro,Z \
+        --workdir /run \
+        "$NODE_IMAGE" \
+        node builder.js \
+            --data=data.yaml \
+            --tmpl=tmpl.pug \
+            --style=style.scss \
+    > ./dist/www/"$1".html
 }
 
-function compile {
+function build-pdf {
+    [ ! -d ./dist/www ] && mkdir -p -m 666 ./dist/www
+    podman run -ti --rm \
+        -v ./dist:/home/pptruser/dist:rw,Z \
+        ghcr.io/puppeteer/puppeteer \
+        node dist/pdf.js "$@"
+}
+
+function install {
     podman run -ti --rm \
         --name site-builder-compiler \
         --workdir /run/builder \
-        --volume ./builder:/run/builder:ro \
-        --volume "$CACHE_VOLUME:/run/cache:rw" \
+        --volume ./builder:/run/builder:Z \
         "$NODE_IMAGE" \
-        npx tsc --outDir /run/cache/
+        npm install "$@"
+}
+
+function compile {
+    [ ! -d ./dist ] && mkdir -p -m 666 ./dist
+    podman run -ti --rm \
+        --name gh.io_compile \
+        --workdir /run/builder \
+        --volume ./builder:/run/builder:ro,Z \
+        --volume ./dist:/run/dist:rw,Z \
+        "$NODE_IMAGE" \
+        npx tsc --outDir /run/dist/
 }
 
 function site-builder {
-    if [ ! -d ./dist ]; then mkdir ./dist; fi
+    [ ! -d ./dist/www ] && mkdir -p -m 666 ./dist/www
     podman run -ti --rm \
         --name site-builder \
         --workdir /run \
@@ -38,7 +76,7 @@ function serve {
     podman run -ti --rm \
         --name server \
         --workdir /var/www \
-        --volume ./dist:/var/www:ro \
+        --volume ./dist/www:/var/www:ro,Z \
         --publish 8080:8080 \
         docker.io/library/python \
         python -m http.server 8080
@@ -50,7 +88,7 @@ function watch {
     done
 }
 
-function new {
-    git checkout -b "draft/$2" || git checkout "draft/$2"
-    site-builder new -t "$2"
-}
+# function new {
+#     git checkout -b "draft/$2" || git checkout "draft/$2"
+#     site-builder new -t "$2"
+# }

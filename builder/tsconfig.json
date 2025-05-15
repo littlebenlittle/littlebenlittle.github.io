@@ -8,5 +8,5 @@
       "strict": true,
       "skipLibCheck": true
     },
-    "include": ["builder.ts"]
+    "include": ["cv.ts", "pdf.ts"]
 }
