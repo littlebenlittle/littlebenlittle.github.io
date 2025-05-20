@@ -68,7 +68,6 @@ function compile_file(source: string) {
     } {
         const file_content = fs.readFileSync(source, "utf8");
         var { body, attributes } = fm<PageAttributes>(file_content);
-        console.log("1", attributes);
         if (attributes._compile) {
             for (const key in attributes._compile) {
                 if (path.extname(attributes._compile[key]) == ".scss") {
@@ -80,7 +79,6 @@ function compile_file(source: string) {
                 }
             }
         }
-        console.log("2", attributes);
         if (attributes._includes) {
             console.log("contains _includes directive");
             for (const p of attributes._includes) {
@@ -90,7 +88,6 @@ function compile_file(source: string) {
                 attributes = { ...attributes, ...extra_attr };
             }
         }
-        console.log("3", attributes);
         return { body, attributes };
     }
 
