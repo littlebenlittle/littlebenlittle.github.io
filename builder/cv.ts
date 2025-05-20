@@ -3,7 +3,7 @@ import * as sass from "sass"
 import * as yaml from "yaml"
 import * as fs from "fs"
 import * as prettier from "prettier"
-import {argv, exit, stderr, stdout} from 'process'
+import { argv, exit, stderr, stdout } from 'process'
 
 const parse_arg = (arg: string) => {
     for (const v of argv) {
@@ -36,5 +36,5 @@ const html = template({
 })
 
 prettier
-    .format(html, {parser: "html"})
+    .format(html, { parser: "html" })
     .then(html_prettier => stdout.write(html_prettier))

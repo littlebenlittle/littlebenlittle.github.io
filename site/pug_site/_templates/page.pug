@@ -1,0 +1,14 @@
+doctype html
+html(lang="en" encoding="utf8")
+  head
+    title= title
+    if canonical
+      link(rel="canonical", href=canonical)
+    link(rel="stylesheet", href="style.css")
+  body
+    header
+      include header.pug
+    main.
+      !{_inner_html}
+    footer
+      include footer.pug

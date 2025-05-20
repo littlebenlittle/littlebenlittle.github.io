@@ -1,6 +1,10 @@
-Rebuild website with pug templates and up-to-date info
+[ ] Rebuild website with pug templates and up-to-date info
+- [x] Minimal pug template site
+- [x] Build pipeline
+- [ ] GH Pages Automation
+- [ ] Add relevant info
 
-Build (individual) pipelines for:
-- Static Website
-- Resume HTML & PDF
+[ ] Build (individual) pipelines for:
+- [x] Static Website
+- [ ] CV HTML & PDF
 - [x] Card PDF

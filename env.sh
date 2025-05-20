@@ -11,11 +11,15 @@ CACHE_VOLUME=site-builder-cache
 #     buildah commit "$ctr" localhost/node-graphviz
 # }
 
+function mkdist {
+   [ ! -d ./dist/www ] && mkdir -p -m 666 ./dist/www
+}
+
 function build-html {
     [ -z "$1" ] && echo "Need arg {cv,card}" && return
-    [ ! -d ./dist/www ] && mkdir -p -m 666 ./dist/www
+    mkdist
     podman run -ti --rm \
-        --name   gh.io_build-html-cv \
+        --name   "gh.io_build-html-$1" \
         --volume ./dist/cv.js:/run/builder.js:ro,Z \
         --volume ./builder/node_modules:/run/node_modules:ro,Z \
         --volume ./"$1"/"$1".yaml:/run/data.yaml:ro,Z \
@@ -32,7 +36,7 @@ function build-html {
 }
 
 function build-pdf {
-    [ ! -d ./dist/www ] && mkdir -p -m 666 ./dist/www
+    mkdist
     podman run -ti --rm \
         -v ./dist:/home/pptruser/dist:rw,Z \
         ghcr.io/puppeteer/puppeteer \
@@ -41,7 +45,7 @@ function build-pdf {
 
 function install {
     podman run -ti --rm \
-        --name site-builder-compiler \
+        --name gh.io_install \
         --workdir /run/builder \
         --volume ./builder:/run/builder:Z \
         "$NODE_IMAGE" \
@@ -49,7 +53,7 @@ function install {
 }
 
 function compile {
-    [ ! -d ./dist ] && mkdir -p -m 666 ./dist
+    mkdist
     podman run -ti --rm \
         --name gh.io_compile \
         --workdir /run/builder \
@@ -59,26 +63,25 @@ function compile {
         npx tsc --outDir /run/dist/
 }
 
-function site-builder {
-    [ ! -d ./dist/www ] && mkdir -p -m 666 ./dist/www
+function build-site {
+    mkdist
     podman run -ti --rm \
-        --name site-builder \
+        --name gh.io_build-site \
         --workdir /run \
-        --env NODE_PATH=/run/node_modules \
-        --volume ./builder/node_modules:/run/node_modules:ro \
-        --volume ./site:/run/site:ro \
-        --volume ./dist:/run/dist:rw \
-        --volume "$CACHE_VOLUME:/run/cache:ro" \
-        localhost/node-graphviz node /run/cache/builder.js "$@"
+        --volume ./builder/node_modules:/run/node_modules:ro,Z \
+        --volume ./dist:/run/dist:rw,Z \
+        --volume ./site/pug_site:/run/site:ro,Z \
+        "$NODE_IMAGE" \
+        node ./dist/site.js "$@"
 }
 
 function serve {
     podman run -ti --rm \
-        --name server \
+        --name gh.io_serve \
         --workdir /var/www \
         --volume ./dist/www:/var/www:ro,Z \
         --publish 8080:8080 \
-        docker.io/library/python \
+        docker.io/library/busybox \
         python -m http.server 8080
 }
 
