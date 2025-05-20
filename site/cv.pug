@@ -1,0 +1,62 @@
+---
+_includes:
+  - _cv/cv.yaml
+---
+
+- humanDate = (date) => new Date(date).toLocaleString([], { month: "short", year: "numeric" })
+
+doctype html
+html(lang="en" encoding="utf8")
+  head
+    title= basics.name
+    link(rel="canonical", href=meta.canonical)
+    style !{css}
+    script(
+      src="https://kit.fontawesome.com/acb0444af5.js",
+      crossorigin="anonymous",
+    )
+  body
+    header
+      include _cv/basics.pug
+    main
+      section.work
+        .section-title
+          i.fa-solid.fa-briefcase
+          h2 Work
+        hr
+        include _cv/work.pug
+      section.education
+        .section-title
+          i.fa-solid.fa-graduation-cap
+          h2 Education
+        hr
+        include _cv/education.pug
+      section.volunteer
+        .section-title
+          i.fa-solid.fa-handshake-angle
+          h2 Volunteer
+        hr
+        include _cv/volunteer.pug
+      section.skills
+        .section-title
+          i.fa-solid.fa-wrench
+          h2 Skills
+        hr
+        include _cv/skills.pug
+      //- include _cv/languages.pug
+      //- include _cv/projects.pug
+      //- include _cv/publications.pug
+      section.certificates
+        .section-title
+          i.fa-solid.fa-file-lines
+          h2 Certificates
+        hr
+        include _cv/certificates.pug
+      //- include _cv/awards.pug
+      section.interests
+        .section-title
+          i.fa-solid.fa-lightbulb
+          h2 Interests
+        hr
+        include _cv/interests.pug
+      //- include _cv/references.pug

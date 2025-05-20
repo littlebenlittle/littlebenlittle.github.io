@@ -1,0 +1,22 @@
+each role in volunteer
+  .item
+    h3.title= role.position
+    .detail
+      .overview
+        .organization
+          b.organization= role.organization
+        .location
+          i.fa-solid.fa-location-dot
+          span= role.location
+        .date-range
+          i.fa-regular.fa-calendar
+          span= humanDate(role.startDate)
+          if role.endDate
+            span= " - " + humanDate(role.endDate)
+          else
+            span= " - " + "Current"
+      if role.highlights
+        ul.highlights
+          each highlight in role.highlights
+            li.highlight= highlight
+    span.summary= role.summary

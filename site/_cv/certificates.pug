@@ -1,0 +1,14 @@
+each cert in certificates
+  .item
+    h3.title= cert.name
+    .detail
+      .organization
+        b.organization= cert.issuer
+      .date
+        i.fa-regular.fa-calendar
+        span= humanDate(cert.date)
+      .url
+        a(href=cert.url)
+          i.fa-solid.fa-globe
+          span.summary= cert.url
+

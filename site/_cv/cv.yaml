@@ -1,0 +1,181 @@
+$schema: https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json
+
+meta:
+  theme: stackoverflow
+  canonical: https://benlittle.dev/resume
+
+basics:
+  name: Ben Little
+  pronouns: He/They
+  image: https://benlittle.dev/assets/profile.webp
+  email: ben.little@benlittle.dev
+  url: https://benlittle.dev
+  location:
+    city: Louisville
+    region: Colorado
+    countryCode: US
+  profiles:
+    - network: GitHub
+      url: https://github.com/littlebenlittle
+      username: littlebenlittle
+  summary: >-
+    Software Engineer, Mathematician, and Computer Scientist looking
+    to make a positive social impact by building accessible and meaningful
+    tools.
+
+work:
+  - name: CU Boulder
+    location: Boulder, CO
+    description: Higher Education
+    position: Graduate Teaching Assistant
+    startDate: 2021-08-01
+    endDate: 2022-05-01
+    summary: >-
+      Led recitation sections, designed problem sets, assisted students
+      one-on-one, and graded assignments.
+    highlights:
+      - Teaching
+  - name: Aiva, Inc
+    location: Los Angeles, CA (remote)
+    description: Healthcare and Hospitality Technology
+    position: Platform Engineer
+    startDate: 2021-02-01
+    endDate: 2022-08-01
+    summary: >-
+      Maintained legacy tech while team transitioned to more
+      application-appropriate tooling. Assisted with implementing test-driven
+      development to mitigate regressions and improve developer experience.
+    highlights:
+      - Bash / TypeScript / Go
+      - Amazon Alexa
+      - Amazon Web Services
+  - name: Fruition
+    location: Denver, CO
+    description: Full-Stack Digital Marketing and Hosting
+    position: Special Projects Engineer
+    startDate: 2018-06-01
+    endDate: 2020-08-01
+    summary: >-
+      Learned and used back-end web hosting tools. Built custom ETL pipeline for
+      client-facing business intelligence dashboard using Google Cloud Platform.
+    highlights:
+      - Google Cloud Platform
+      - Kubernetes
+      - Rancher
+  - name: Penn State Applied Research Laboratory
+    location: State College, PA
+    description: Naval Think Tank
+    position: Research and Development Engineer I
+    startDate: 2015-09-01
+    endDate: 2017-07-01
+    summary: >-
+      Provided mathematical consult to GIS software team. Used Java to write
+      extensions for a GIS research tool that was transitioning to production.
+
+volunteer:
+  - organization: Neurodiversity Community Center
+    position: Technology Consultant
+    startDate: 2024-04
+    location: Lafaytte, CO
+    summary: >-
+      Built WordPress website and provided technical guidance during
+      organization's initial launch.
+  - organization: Rocky Mountain Equality
+    position: Volunteer
+    startDate: 2024-05
+    location: Boulder, CO
+    summary: >-
+      Assisted with events, including preparing show venues and helping youth
+      with arts & crafts at pride events.
+  - organization: CU Association for Students with Disabilities
+    position: Community Facilitator
+    startDate: 2022-11
+    location: Boulder, CO
+    summary: >-
+      Helped organize meetings and facilitate conversation among CU students,
+      faculty, and staff who identify with the experience of being disabled.
+
+education:
+  - institution: University of Colorado Boulder
+    location: Boulder, CO
+    area: Computer Science
+    studyType: Master of Science (Incomplete)
+    startDate: 2021-08-01
+    courses:
+      - Foundations of Programming Languages
+      - Computer Security and Ethical Hacking
+      - Design and Analysis of Algorithms
+      - Advanced Computer Architecture
+      - Computational Complexity Theory
+      - Network Analysis and Modeling
+  - institution: The Pennsylvania State University
+    location: University Park, PA
+    area: Mathematics
+    studyType: Bachelor of Science
+    startDate: 2011-06-01
+    endDate: 2015-05-01
+
+certificates:
+  - name: CU Mini Law School Certificate
+    issuer: CU Boulder, School of Law
+    date: 2022-05-01
+    url: https://www.colorado.edu/law/academics/mini-law-school
+
+skills:
+  - name: Linux System Administration
+    level: Advanced (8 years)
+    keywords:
+      - Provisioning
+      - Filesystems
+      - systemd
+      - Containers
+      - Virtualization
+      - Firewalls
+  - name: Programming Languages
+    level: Advanced (8 years)
+    keywords:
+      - rust
+      - go
+      - shell
+      - python
+      - javascript
+      - typescript
+      - assembly
+  - name: Software Development
+    level: Intermediate (5 years)
+    keywords:
+      - Version Control
+      - OOP
+      - Functional Programming
+      - Microservices
+      - Web Development
+      - Test-Driven Development
+      - Automation
+      - CI/CD
+  - name: Formal Methods
+    level: Beginner (2 years)
+    keywords:
+      - Type Theory
+      - Proof Assistants
+      - Symbolic Logic
+  - name: Software Deployment
+    level: Beginner (2 years)
+    keywords:
+      - AWS
+      - GCP
+      - Kubernetes
+
+interests:
+  - name: Social Progress
+    keywords:
+      - Transformative Justice
+      - Neurodiversity
+  - name: Music
+    keywords:
+      - Synthesizers
+      - Guitar
+      - Singing
+  - name: Otaku Culture
+    keywords:
+      - Anime
+      - Manga

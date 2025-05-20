@@ -1,6 +1,0 @@
-blogTemplate: post.hbs
-include:
-  - path: /resume.pdf
-    target: https://github.com/littlebenlittle/cv/releases/download/v0.2.3/resume.pdf
-  - path: /resume.html
-    target: https://github.com/littlebenlittle/cv/releases/download/v0.2.3/resume.html

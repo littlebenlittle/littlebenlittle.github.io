@@ -1,0 +1,36 @@
+.row
+  .overview
+    .identity
+      h1.name= basics.name
+      h3.pronouns= basics.pronouns
+    div
+      .location
+        i.fa-solid.fa-location-dot
+        .address
+          span.city= basics.location.city
+          div
+            span.region= basics.location.region
+            span.country-code= basics.location.countryCode
+      .contact
+        .website
+          a(href=basics.url)
+            i.fa-solid.fa-earth-americas
+            span= basics.url
+        .email
+          a(href="mailto:" + basics.email)
+            i.fas.fa-solid.fa-envelope
+            span= basics.email
+      ul.profiles
+        each profile in basics.profiles
+          li.profile
+            a(href=profile.url)
+              case profile.network.toLowerCase()
+                when "github"
+                  i.fa-brands.fa-github
+                default
+                  span
+                    b= profile.network
+              span.username= profile.username
+  .img-ctr
+    img.image(src=basics.image)
+p.summary= basics.summary

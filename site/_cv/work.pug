@@ -1,0 +1,19 @@
+each role in work
+  .item
+    h3.title= role.position
+    .detail
+      .overview
+        .organization
+          b.name= role.name
+          span.description= role.description
+        .location
+          i.fa-solid.fa-location-dot
+          span= role.location
+        .date-range
+          i.fa-regular.fa-calendar
+          span= humanDate(role.startDate) + " - " + humanDate(role.endDate)
+      if role.highlights
+        ul.highlights
+          each highlight in role.highlights
+            li.highlight= highlight
+    span.summary= role.summary

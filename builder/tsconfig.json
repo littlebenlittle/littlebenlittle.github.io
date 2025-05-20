@@ -1,18 +1,12 @@
 {
-  "compilerOptions": {
-    "target": "es2022",
-    "lib": [
-      "ES2022"
-    ],
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
-  },
-  "include": [
-    "cv.ts",
-    "pdf.ts",
-    "site.ts"
-  ]
+    "compilerOptions": {
+        "target": "es2022",
+        "lib": ["ES2022"],
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "include": ["builder.ts", "pdf.ts", "site.ts"]
 }
