@@ -5,6 +5,10 @@ $med-gap: 32px;
 $small-screen-width: 400px;
 $max-content-width: 600px;
 
+body {
+    font-family: sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -30,16 +34,13 @@ footer {
 }
 
 main {
-    padding-top: $small-gap;
+    padding-top: $med-gap;
     display: grid;
     justify-content: center;
     > * {
-        padding-bottom: $med-gap;
-        display: grid;
-        justify-items: center;
-        padding-left: $tiny-gap;
-        padding-right: $tiny-gap;
-
+        padding: 0 $tiny-gap $med-gap $tiny-gap;
+        // display: grid;
+        // justify-items: center;
         .content {
             width: 100%;
             max-width: $max-content-width;
@@ -49,6 +50,7 @@ main {
         max-width: $max-content-width;
     }
 }
+
 footer {
     position: absolute;
     bottom: 0;
@@ -95,26 +97,42 @@ footer {
     }
 }
 
-#Contact {
+section {
+    .header {
+        padding-bottom: $small-gap;
+    }
+}
+
+.list {
+    padding-top: $small-gap;
+    padding-bottom: $med-gap;
+
     .items {
-        padding-top: $med-gap;
-        padding-bottom: $med-gap;
         display: grid;
         grid-template-columns: 1fr 1fr;
-
-        > * {
-            display: grid;
-            justify-content: center;
+        row-gap: $small-gap;
+        > .item {
+            width: calc($small-screen-width / 2);
         }
 
         @media screen and (max-width: $small-screen-width) {
-            padding-top: $small-gap;
             padding-bottom: $small-gap;
-            display: block;
+            display: grid;
+            grid-template-columns: 1fr;
 
             > * {
                 justify-content: left;
             }
         }
     }
+}
+
+.elide {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+}
+
+.emph {
+    font-weight: 600;
 }

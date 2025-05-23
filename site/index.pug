@@ -1,22 +1,35 @@
 ---
 _template: page.pug
+_compilation_target: html
 title: Ben Little
 canonical: https://benlittle.dev
 ---
 
 section#Hero
-  .content
-    h1#name       Ben Little
-    h2#title      Software Engineer, Mathematician, Physicist, Alchemist
-    #location     Boulder County
-    #description  Technology education and consulting for communities and activists.
+  .header
+    h1#name     Ben Little
+    h2#title    Alchemist, Mathematician, Physicist, Software Engineer
+    #location   Boulder County
+  #description  Technology services, consulting, and education for communities and activists.
 
-section#Contact
-  .content
+section.list
+  .header
+    h2 Expertise 
+  .items
+    div Data Backup and Restoration
+    div Cybersecurity Analysis
+    div Provisioning Linux Systems
+
+section.list
+  .header
     h2 Contact
-    .items
-      div Signal: benlittle.32
-      div Session: 051e64...
+  .items
+    .item
+      span Signal:
+      span.clipboard       benlittle.32
+    .item.elide
+      span Session: 
+      span.clipboard 051e64XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 //- Projects & Tools
 //- TODO
