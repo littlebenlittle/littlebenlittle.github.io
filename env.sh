@@ -58,9 +58,11 @@ function serve {
 }
 
 function watch {
-    while inotifywait -e modify,create -r ./site; do
-        site-builder build "$@"
-    done
+    exec 3>&1
+    while inotifywait -e modify,create -r ./site >&3; do
+        build-site "$@" >&3
+        echo refresh
+    done | websocat -s 9001
 }
 
 # function new {

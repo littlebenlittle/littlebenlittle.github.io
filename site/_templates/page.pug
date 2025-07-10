@@ -5,6 +5,12 @@ html(lang="en" encoding="utf8")
     if canonical
       link(rel="canonical", href=canonical)
     link(rel="stylesheet", href="style.css")
+    script(
+      src="https://kit.fontawesome.com/acb0444af5.js",
+      crossorigin="anonymous",
+    )
+    script(type="text/javascript").
+      (new WebSocket("ws://127.0.0.1:9001")).addEventListener("message", _ => location.reload());
   body
     header
       include header.pug
