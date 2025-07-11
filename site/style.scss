@@ -5,8 +5,24 @@ $med-gap: 32px;
 $small-screen-width: 400px;
 $max-content-width: 600px;
 
+$base-font-size: 1rem;
+
+$accent: #d1964a;
+$white: #c5c5c5;
+$link: #008fc5;
+$grey: #737480;
+$grey2: #14191f;
+$dark: #0f1419;
+
+i {
+    padding-right: $tiny-gap;
+}
+
 body {
     font-family: sans-serif;
+    background-color: $dark;
+    font-size: $base-font-size;
+    color: $white;
 }
 
 * {
@@ -14,31 +30,44 @@ body {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+    color: $link;
+}
+
 header {
-    padding-top: $tiny-gap;
-    padding-bottom: $small-gap;
     border-bottom-style: solid;
 }
 
 header,
 footer {
+    width: 100%;
+    position: fixed;
+    padding-top: $small-gap;
+    padding-bottom: $small-gap;
+    background-color: $grey2;
+    color: $grey;
     nav {
         padding-left: $tiny-gap;
 
         a {
-            color: black;
             text-decoration: none;
             padding-right: $small-gap;
+            color: $white;
         }
     }
 }
 
 main {
-    padding-top: $med-gap;
-    display: grid;
-    justify-content: center;
+    padding: (3 * $med-gap) $small-gap (3 * $med-gap) $small-gap;
+    max-width: $max-content-width - 2 * $med-gap;
+    margin-left: auto;
+    margin-right: auto;
+    // display: grid;
+    // justify-content: center;
     > * {
-        padding: 0 $tiny-gap $med-gap $tiny-gap;
+        //padding: 0 $tiny-gap $med-gap $tiny-gap;
+        padding: 0;
         // display: grid;
         // justify-items: center;
         .content {
@@ -52,61 +81,76 @@ main {
 }
 
 footer {
-    position: absolute;
     bottom: 0;
-    width: 100%;
     border-top: solid;
-    padding-top: $small-gap;
-    padding-bottom: $tiny-gap;
+    nav {
+        display: flex;
+        justify-content: space-between;
+        padding-left: $small-gap;
+        padding-right: $small-gap;
+    }
 }
 
 #Hero {
-    .content {
-        display: grid;
-        column-gap: $small-gap;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "name      name       "
-            "title     location"
-            "title     description";
+    @media screen and (max-width: $small-screen-width) {
+        #title {
+            margin-top: $small-gap;
+        }
 
-        @media screen and (max-width: $small-screen-width) {
-            display: block;
-
-            #description {
-                margin-top: $small-gap;
-            }
+        #description {
+            margin-top: $small-gap;
         }
     }
 
     #name {
-        grid-area: name;
-    }
-
-    #title {
-        font-size: medium;
-        grid-area: title;
-    }
-
-    #location {
-        grid-area: location;
+        font-size: calc($base-font-size * 2);
     }
 
     #description {
-        grid-area: description;
+        font-size: calc($base-font-size * 1.25);
+    }
+
+    #stats {
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        i {
+            justify-self: center;
+            align-self: center;
+        }
     }
 }
 
 section {
+    margin-bottom: $med-gap;
+
     .header {
+        h2 {
+            font-size: calc($base-font-size * 1.25);
+        }
         padding-bottom: $small-gap;
     }
 }
 
-.list {
-    padding-top: $small-gap;
-    padding-bottom: $med-gap;
+section.list {
+    padding: $small-gap;
+}
 
+section:not(:nth-child(1)) {
+    border-color: $grey;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 16px;
+    background-color: $grey2;
+    //width: 80vw;
+    //margin-left: auto;
+    //margin-right: auto;
+
+    @media screen and (max-width: $small-screen-width) {
+        max-width: 90vw;
+    }
+}
+
+.list {
     .items {
         display: grid;
         grid-template-columns: 1fr 1fr;
