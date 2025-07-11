@@ -6,7 +6,6 @@ import * as prettier from "prettier";
 import * as sass from "sass";
 import markdownit from "markdown-it";
 import * as yaml from "yaml";
-import { ReadableStreamGenericReader } from "stream/web";
 
 const md = markdownit();
 
@@ -18,6 +17,7 @@ type PageAttributes = {
     _compile: { [key: string]: string } | undefined;
     // A list additional yaml files to include as attributes
     _include: string[] | undefined;
+    // Additional attributes
     [key: string]: any;
 };
 
@@ -44,6 +44,7 @@ function compile_dir(dir: string) {
 
 function compile_file(source: string) {
     console.log(source);
+
     function target_path(ext: string) {
         return (
             "/run/dist/www/" +
