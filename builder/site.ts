@@ -5,10 +5,12 @@ import fm from "front-matter";
 import * as prettier from "prettier";
 import * as sass from "sass";
 import markdownit, { Token } from "markdown-it";
+import markdownit_anchor from "markdown-it-anchor";
+import highlightjs from "markdown-it-highlightjs";
 import * as yaml from "yaml";
 import * as process from "process";
 
-const md = markdownit();
+const md = markdownit().use(markdownit_anchor).use(highlightjs);
 
 md.core.ruler.push("external-links", (state) => {
     for (const t of state.tokens) {
@@ -35,6 +37,11 @@ function check_external_link(t: Token) {
         }
     }
 }
+
+md.renderer.rules.text = (tokens, index) => {
+    var text = tokens[index].content;
+    return text.replaceAll(/--/g, "&#151;");
+};
 
 const _global = {
     release: process.argv.includes("--release"),

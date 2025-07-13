@@ -19,6 +19,12 @@ $grey3: #24292f;
 $dark: #0f1419;
 $dark2: #202429;
 
+// Prevent nav bar from covering anchors
+// https://stackoverflow.com/a/56467997
+html {
+    scroll-padding-top: 70px;
+}
+
 i {
     padding-right: $tiny-gap;
 }

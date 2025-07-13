@@ -46,5 +46,5 @@ section#topics
           #{topic.name}
       ul
         each link in topic.anchors
-          a(href=topic.link + "#" + link.replace(" ", "-"))
+          a(href=topic.link + "#" + link.replaceAll(" ", "-").toLowerCase())
             li= link

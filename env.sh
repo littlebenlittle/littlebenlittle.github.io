@@ -15,13 +15,13 @@ function build-pdf {
         node dist/pdf.js "$@"
 }
 
-function install {
+function npm {
     podman run -ti --rm \
         --name gh.io_install \
         --workdir /run/builder \
         --volume ./builder:/run/builder:rw,z \
         "$NODE_IMAGE" \
-        npm install "$@"
+        npm "$@"
 }
 
 function compile {
