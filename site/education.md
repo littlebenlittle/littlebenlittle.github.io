@@ -74,7 +74,7 @@ One of grand failures of the American education system is that it often scares
 learners away from pursuing their passion. When I tell people that I am a
 mathematician and programmer, about 70% of the time the response is, "Wow, you
 must be really smart," when the actual case is that our education system taught
-them to feel like they weren't. Anyone can learn math, science, and art. All it
+them to feel like they aren't. Anyone can learn math, science, and art. All it
 takes is practice and dedication, two skills that institutionalized education
 doesn't ever really teach.
 
@@ -92,4 +92,4 @@ the topics that I am particularly passionate about:
 -   Physics
 
 If you are looking for education outside of traditional academic pursuits,
-please consider my [consulting services](/consulting.html);
+please consider my [consulting services](/consulting.html).
