@@ -8,5 +8,5 @@
         "strict": true,
         "skipLibCheck": true
     },
-    "include": ["builder.ts", "pdf.ts", "site.ts"]
+    "include": ["pdf.ts", "site.ts"]
 }
