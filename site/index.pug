@@ -3,19 +3,27 @@ _template: page.pug
 _compilation_target: html
 title: Ben Little
 canonical: https://benlittle.dev
-services:
+topics:
+- name: Services
+  link: /services.html
+  anchors:
+  - Research
   - Data Archival
   - Provisioning
-  - Research
   - Administration
-consulting:
-  - Alchemy 
+- name: Consulting
+  link: /consulting.html
+  anchors:
+  - Software Engineering
   - Mathematics
   - Physics
-  - Software Engineering
-education:
+  - Alchemy 
+- name: Education
+  link: /education.html
+  anchors:
   - Linux
   - Open Source Software
+  - Tutoring
 ---
 
 section#Hero
@@ -30,29 +38,13 @@ section#Hero
       span ben@benlittle.dev
   #description  Technology services, consulting, and education for individuals, communities, and businesses.
 
-section.list
-  .header
-    h2 Services 
-  .items
-    each item in services
-      div
-        a(href="/services.html#" + item.replace(" ", "-"))= item
-
-section.list
-  .header
-    h2 Consulting 
-  .items
-    each item in consulting
-      div
-        a(href="/consulting.html#" + item.replace(" ", "-"))= item
-
-section.list
-  .header
-    h2 Education 
-  .items
-    each item in education
-      div
-        a(href="/education.html#" + item.replace(" ", "-"))= item
-
-//- Projects & Tools
-//- TODO
+section#topics
+  each topic in topics
+    .list
+      h2
+        a(href=topic.link).
+          #{topic.name}
+      ul
+        each link in topic.anchors
+          a(href=topic.link + "#" + link.replace(" ", "-"))
+            li= link
