@@ -65,7 +65,8 @@ function watch {
     done | websocat -s 9001
 }
 
-# function new {
-#     git checkout -b "draft/$2" || git checkout "draft/$2"
-#     site-builder new -t "$2"
-# }
+function watch_compile {
+    while inotifywait -e modify,create ./builder/site.ts; do
+        compile
+    done
+}

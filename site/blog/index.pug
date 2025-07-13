@@ -1,0 +1,22 @@
+---
+_template: page.pug
+title: Ben Little | Blog
+---
+
+h1 Blog
+
+if _global.blog_entries
+  .entries
+    each entry in _global.blog_entries
+      article
+        a(href=entry.link)
+          h2 #{entry.title}
+          .dates
+            .published
+              time.date #{humanDate(entry.published)}
+            if entry.updated
+              .updated
+                span Last Update:
+                span.date= entry.updated
+else
+  p Nothing here yet...
