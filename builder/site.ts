@@ -151,18 +151,18 @@ function humanDate(s: string) {
         "Saturday",
     ][d.getDay()];
     const month = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
+        "January",
+        "February",
+        "March",
+        "April",
         "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "Novemver",
+        "December",
     ][d.getMonth()];
     return `${day}, ${d.getDate()} ${month} ${d.getFullYear()}`;
 }
