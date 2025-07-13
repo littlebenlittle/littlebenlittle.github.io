@@ -9,9 +9,10 @@ $max-content-width: 600px;
 $base-font-size: 1rem;
 
 $accent: #d1964a;
+$accent-dark: #a7783b;
 $white: #c5c5c5;
 $link: #008fc5;
-$link-hover: #005f81;
+$link-dark: #005f81;
 $grey: #737480;
 $grey2: #34393f;
 $grey3: #24292f;
@@ -37,6 +38,10 @@ body {
 a {
     text-decoration: none;
     color: $link;
+}
+
+a:hover {
+    color: $link-dark;
 }
 
 .blog-entries {
@@ -92,6 +97,12 @@ header {
     nav {
         display: flex;
         justify-content: space-between;
+        a {
+            color: $white;
+        }
+        a:hover {
+            color: $grey;
+        }
         .home {
             flex-shrink: 0;
         }
@@ -166,17 +177,30 @@ main {
         > ul {
             padding-left: $med-gap;
         }
-        blockquote {
+        > blockquote {
             padding: 3px 0 3px $med-gap;
             background-color: $dark2;
             border-left: 3px solid $grey2;
+        }
+        > p code {
+            color: $accent;
+        }
+        > p a:hover > code {
+            color: $accent-dark;
+        }
+        > pre {
+            font-size: medium;
+            padding: 4px 12px 12px 12px;
+            border-radius: 3px;
+            background-color: $grey3;
+            overflow-x: scroll;
+            text-wrap: nowrap;
         }
     }
 
     article {
         display: flex;
-        margin-bottom: $med-gap;
-        padding-bottom: $small-gap;
+        padding-top: 16px;
         border-bottom: 3px solid $grey2;
 
         > a {
@@ -271,10 +295,19 @@ section {
             padding-right: 8px;
             color: $white;
         }
-        li:hover {
-            //color: $link-hover;
+        a:hover li {
+            color: $link;
             transform: translateX(4px);
             transition: 0.5s;
         }
     }
+}
+
+// wikipedia-style external link
+.external {
+    background-image: url("/assets/external.svg");
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: 0.7em;
+    padding-right: 0.9em;
 }

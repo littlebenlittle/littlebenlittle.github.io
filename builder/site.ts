@@ -4,11 +4,38 @@ import * as pug from "pug";
 import fm from "front-matter";
 import * as prettier from "prettier";
 import * as sass from "sass";
-import markdownit from "markdown-it";
+import markdownit, { Token } from "markdown-it";
 import * as yaml from "yaml";
 import * as process from "process";
 
 const md = markdownit();
+
+md.core.ruler.push("external-links", (state) => {
+    for (const t of state.tokens) {
+        check_external_link(t);
+    }
+});
+
+function check_external_link(t: Token) {
+    if (t.children != null) {
+        for (const c of t.children) {
+            check_external_link(c);
+        }
+    } else if (t.type === "link_open") {
+        const href = t.attrGet("href");
+        if (href == null) {
+            return;
+        }
+        if (
+            !href.startsWith("https://benlittle.dev") &&
+            (href.startsWith("http://") || href.startsWith("https://"))
+        ) {
+            t.attrJoin("class", "external");
+            t.attrJoin("target", "_blank");
+        }
+    }
+}
+
 const _global = {
     release: process.argv.includes("--release"),
     blog_entries: fs
