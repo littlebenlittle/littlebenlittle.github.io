@@ -10,16 +10,17 @@ title: Ben Little | Education
 A resilient community is one that has the knowledge and skills to care for
 itself. For that purpose, I offer little-to-no-cost personalized education to
 members of my local community. I also offer the same to busisnesses and
-commercial ventures for a reasonable fee.
+commercial ventures for a reasonable fee. Please [get in contact](/) for more
+information.
 
 ## Linux
 
 [Linux][linux] is the most used software in the world, sitting at the core of
 everything from high performance computing clusters to mobile phones. Its
 ubiquity is largely due to its open source software license that allows anyone
-to freely modify and redistribute the software, meaning that experts and
-hobbyists the world over have contributed updates and bugfixes since its first
-release in the early 90s.
+to modify and redistribute the software freely, meaning that experts and
+hobbyists the world over have been able to tune the software to work in
+multitudes of different environments for various purposes.
 
 I have used Linux-based computer systems for almost a decade and am delighted to
 introduce people to this powerful tool. I can teach beginners to download, test,
@@ -40,8 +41,8 @@ invented.
 However with the launch of the Free Software Foundation and [GNU project][gnu]
 in 1984, a new model of software development was born: open source software
 (OSS), also called _libre_ software. The idea was that software uninihibited by
-restrictive licensing could be developed faster and more reliably by people the
-world over. It would also encourage widespread education about software
+restrictive licensing could be developed faster and more reliably by people all
+across the world. It would also encourage widespread education about software
 development. In short, OSS was software for the public good rather than private
 interest.
 
@@ -49,17 +50,19 @@ Today OSS is considered the go-to model even for corporate software development.
 Examples include:
 
 -   The [Linux Kernel][linux], an operating system kernel
--   [Chromium][chromium], base for many different web browsers
--   Mozilla [Firefox][firefox], popular privacy-focused web browser
--   [Libre Office Suite][libreoffice], collection of office tools including a
+-   [Chromium][chromium], the base of many different web browsers
+-   Mozilla [Firefox][firefox], a popular privacy-focused web browser
+-   [Libre Office Suite][libreoffice], a collection of office tools including a
     word processor, slide-show builder, spreadsheet editor, and more
 -   [VLC Player][vlcplayer], a video player
 
 There are far too many projects to count, but chances are that for any computing
-task you might reasonly want to do, there is probably an open source project
-that can do it.
+task you might reasonly want to do, there is probably an open source project to
+help you do it.
 
-As an educator, I can help you find the right OSS to fit your needs.
+As an educator, I can help you find the right OSS to fit your needs, teach you
+to install it, and help you learn how to use the documentation to answer any
+questions that may encounter in the future.
 
 [gnu]: https://www.gnu.org/
 [linux]: https://kernel.org/
@@ -70,13 +73,13 @@ As an educator, I can help you find the right OSS to fit your needs.
 
 ## Tutoring
 
-One of grand failures of the American education system is that it often scares
-learners away from pursuing their passion. When I tell people that I am a
-mathematician and programmer, about 70% of the time the response is, "Wow, you
-must be really smart," when the actual case is that our education system taught
-them to feel like they aren't. Anyone can learn math, science, and art. All it
-takes is practice and dedication, two skills that institutionalized education
-doesn't ever really teach.
+One of the grand failures of the American education system is that it often
+scares learners away from pursuing their passion. When I tell people that I am a
+mathematician and programmer, a common response is, "Wow, you must be really
+smart." The actual case is that our education system has taught so many people
+to feel like they aren't. Anyone can learn math, science, and art. All it takes
+is practice and dedication, two skills that institutionalized education doesn't
+ever really teach.
 
 As an educator, it is my goal to help you find your motiviation in the midst of
 a storm that is trying to beat it out of you. I will work with you to identify

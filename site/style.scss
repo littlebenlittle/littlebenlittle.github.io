@@ -196,8 +196,6 @@ main {
     max-width: $max-content-width - 2 * $med-gap;
     margin-left: auto;
     margin-right: auto;
-    // display: grid;
-    // justify-content: center;
     > * {
         padding: 0;
     }
@@ -238,6 +236,12 @@ main {
         > ol,
         > ul {
             padding-left: $med-gap;
+            li:not(:last-child) {
+                padding-bottom: 8px;
+            }
+        }
+        > ul {
+            list-style: disclosure-closed;
         }
         > blockquote {
             padding: 3px 0 3px $med-gap;
@@ -250,25 +254,7 @@ main {
         > p a:hover > code {
             color: $accent-dark;
         }
-        // > pre {
-        //     font-size: medium;
-        //     padding: 12px;
-        //     border-radius: 3px;
-        //     background-color: $grey3;
-        //     overflow-x: scroll;
-        //     text-wrap: nowrap;
-        // }
     }
-
-    // article {
-    //     display: flex;
-    //     // padding-top: 16px;
-    //     border-bottom: 3px solid $grey2;
-
-    //     > a {
-    //         width: 100%;
-    //     }
-    // }
 }
 
 #Hero {
@@ -372,4 +358,8 @@ section {
     background-repeat: no-repeat;
     background-size: 0.7em;
     padding-right: 0.9em;
+}
+
+.centered {
+    text-align: center;
 }
