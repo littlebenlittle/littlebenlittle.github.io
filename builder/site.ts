@@ -10,7 +10,9 @@ import highlightjs from "markdown-it-highlightjs";
 import * as yaml from "yaml";
 import * as process from "process";
 
-const md = markdownit().use(markdownit_anchor).use(highlightjs);
+const md = markdownit()
+    .use(markdownit_anchor)
+    .use(highlightjs, { auto: false });
 
 md.core.ruler.push("external-links", (state) => {
     for (const t of state.tokens) {
