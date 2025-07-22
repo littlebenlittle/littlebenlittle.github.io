@@ -10,6 +10,16 @@ import highlightjs from "markdown-it-highlightjs";
 import * as yaml from "yaml";
 import * as process from "process";
 
+const SITE_DIR = process.env["SITE_DIR"] || "";
+const DIST_DIR = process.env["DIST_DIR"] || "";
+
+if (!SITE_DIR || !DIST_DIR) {
+    console.log("Please set: SITE_DIR DIST_DIR BLOG_DIR");
+    process.exit(1);
+}
+
+const BLOG_DIR = path.join(SITE_DIR, "blog");
+
 const md = markdownit()
     .use(markdownit_anchor)
     .use(highlightjs, { auto: false });
@@ -48,10 +58,10 @@ md.renderer.rules.text = (tokens, index) => {
 const _global = {
     release: process.argv.includes("--release"),
     blog_entries: fs
-        .readdirSync("/run/site/blog")
+        .readdirSync(BLOG_DIR)
         .filter((e) => !e.match(/index\..*/))
         .map((e) => {
-            const { body, attributes } = get_body_attr("/run/site/blog/" + e);
+            const { body, attributes } = get_body_attr(path.join(BLOG_DIR, e));
             return {
                 title: attributes.title,
                 published: attributes.published,
@@ -93,8 +103,9 @@ type PageAttributes = {
 
 function compile_dir(dir: string) {
     const target_dir = path.join(
-        "/run/dist/www",
-        dir.substring("/run/site/".length)
+        DIST_DIR,
+        "www",
+        dir.substring(SITE_DIR.length)
     );
     if (!fs.existsSync(target_dir)) {
         fs.mkdirSync(target_dir);
@@ -122,7 +133,7 @@ function get_body_attr(source: string): {
         for (const key in attributes._compile) {
             if (path.extname(attributes._compile[key]) == ".scss") {
                 attributes[key] = sass.compile(
-                    "/run/site/" + attributes._compile[key]
+                    SITE_DIR + attributes._compile[key]
                 ).css;
             } else {
                 console.log("unsupported ext: " + attributes._compile[key]);
@@ -132,7 +143,7 @@ function get_body_attr(source: string): {
     if (attributes._includes) {
         console.log("contains _includes directive");
         for (const p of attributes._includes) {
-            const f = "/run/site/" + p;
+            const f = SITE_DIR + p;
             console.log("loading attributes from " + f);
             const extra_attr = yaml.parse(fs.readFileSync(f, "utf8"));
             attributes = { ...attributes, ...extra_attr };
@@ -173,10 +184,10 @@ function compile_file(source: string) {
     console.log(source);
 
     function target_path(ext: string) {
-        return (
-            "/run/dist/www/" +
-            source.substring("/run/dist/".length, source.lastIndexOf(".")) +
-            ext
+        return path.join(
+            DIST_DIR,
+            "www",
+            source.substring(DIST_DIR.length, source.lastIndexOf(".")) + ext
         );
     }
 
@@ -200,7 +211,7 @@ function compile_file(source: string) {
         var html;
         if (attributes._template) {
             const template = pug.compileFile(
-                "/run/site/_templates/" + attributes._template
+                path.join(SITE_DIR, "_templates", attributes._template)
             );
             html = template({
                 _inner_html,
@@ -233,4 +244,4 @@ function compile_file(source: string) {
     }
 }
 
-compile_dir("/run/site");
+compile_dir(SITE_DIR);

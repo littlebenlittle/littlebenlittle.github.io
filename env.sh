@@ -40,6 +40,8 @@ function build-site {
     podman run -ti --rm \
         --name gh.io_build-site \
         --workdir /run \
+        --env SITE_DIR=/run/site \
+        --env DIST_DIR=/run/dist \
         --volume ./builder/node_modules:/run/node_modules:ro,z \
         --volume ./dist:/run/dist:rw,z \
         --volume ./site:/run/site:ro,z \
