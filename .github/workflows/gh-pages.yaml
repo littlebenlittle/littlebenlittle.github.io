@@ -34,7 +34,7 @@ jobs:
       - name: Compile TypeScript
         run: cd builder && npx tsc
       - name: Build Site
-        environment:
+        env:
           SITE_DIR: site
           iIST_DIR: dist
         run:
