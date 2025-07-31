@@ -1,0 +1,26 @@
+each program in education
+  .item
+    .title
+      h3.type= program.studyType
+      h4.area= program.area
+    .detail
+      .overview
+        span.organization
+          b= program.institution
+        .location
+          i.fa-solid.fa-location-dot
+          span= program.location
+        .date-range
+          i.fa-regular.fa-calendar
+          span= humanDate(program.startDate)
+          if program.endDate
+            span= " - " + humanDate(program.endDate)
+          else
+            span= " - " + "Current"
+      if program.courses
+        .highlights
+          h4 Courses Taken
+          ul
+            each course in program.courses
+              li.highlight= course
+    span.summary= program.summary

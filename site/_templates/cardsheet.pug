@@ -1,0 +1,14 @@
+doctype html
+html(lang="en" encoding="utf8")
+  head
+    title Ben Little | Card Sheet
+    style !{css}
+    script(
+      src="https://kit.fontawesome.com/acb0444af5.js",
+      crossorigin="anonymous",
+    )
+  body
+    main
+      - var seq = Array(3*10).fill().map((_,i) => i)
+      each _ in seq
+        .card !{_inner_html}

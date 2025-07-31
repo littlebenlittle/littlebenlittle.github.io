@@ -3,54 +3,72 @@
 NODE_IMAGE=docker.io/library/node:21
 CACHE_VOLUME=site-builder-cache
 
-function build {
-    ctr=$(buildah from "$NODE_IMAGE")
-    buildah run "$ctr" -- apt-get update
-    buildah run "$ctr" -- apt-get install -y graphviz
-    buildah commit "$ctr" localhost/node-graphviz
-    unset ctr
+function mkdist {
+   [ ! -d ./dist/www ] && mkdir -p -m 777 ./dist/www
+}
+
+function build-pdf {
+    mkdist
+    podman run -ti --rm \
+        -v ./dist:/home/pptruser/dist:rw,z \
+        ghcr.io/puppeteer/puppeteer \
+        node dist/pdf.js "$@"
+}
+
+function npm {
+    podman run -ti --rm \
+        --name gh.io_install \
+        --workdir /run/builder \
+        --volume ./builder:/run/builder:rw,z \
+        "$NODE_IMAGE" \
+        npm "$@"
 }
 
 function compile {
+    mkdist
     podman run -ti --rm \
-        --name site-builder-compiler \
+        --name gh.io_compile \
         --workdir /run/builder \
-        --volume ./builder:/run/builder:ro \
-        --volume "$CACHE_VOLUME:/run/cache:rw" \
+        --volume ./builder:/run/builder:ro,z \
+        --volume ./dist:/run/dist:rw,z \
         "$NODE_IMAGE" \
-        npx tsc --outDir /run/cache/
+        npx tsc --outDir /run/dist/
 }
 
-function site-builder {
-    if [ ! -d ./dist ]; then mkdir ./dist; fi
+function build-site {
+    mkdist
     podman run -ti --rm \
-        --name site-builder \
+        --name gh.io_build-site \
         --workdir /run \
-        --env NODE_PATH=/run/node_modules \
-        --volume ./builder/node_modules:/run/node_modules:ro \
-        --volume ./site:/run/site:ro \
-        --volume ./dist:/run/dist:rw \
-        --volume "$CACHE_VOLUME:/run/cache:ro" \
-        localhost/node-graphviz node /run/cache/builder.js "$@"
+        --env SITE_DIR=/run/site \
+        --env DIST_DIR=/run/dist \
+        --volume ./builder/node_modules:/run/node_modules:ro,z \
+        --volume ./dist:/run/dist:rw,z \
+        --volume ./site:/run/site:ro,z \
+        "$NODE_IMAGE" \
+        node ./dist/site.js "$@"
 }
 
 function serve {
     podman run -ti --rm \
-        --name server \
+        --name gh.io_serve \
         --workdir /var/www \
-        --volume ./dist:/var/www:ro \
+        --volume ./dist/www:/var/www:ro,z \
         --publish 8080:8080 \
         docker.io/library/python \
         python -m http.server 8080
 }
 
 function watch {
-    while inotifywait -e modify,create -r ./site; do
-        site-builder build "$@"
-    done
+    exec 3>&1
+    while inotifywait -e modify,create -r ./site >&3; do
+        build-site "$@" >&3
+        echo refresh
+    done | websocat -s 9001
 }
 
-function new {
-    git checkout -b "draft/$2" || git checkout "draft/$2"
-    site-builder new -t "$2"
+function watch_compile {
+    while inotifywait -e modify,create ./builder/site.ts; do
+        compile
+    done
 }

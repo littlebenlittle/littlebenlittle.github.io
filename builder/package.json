@@ -11,7 +11,6 @@
   "author": "Ben Little <ben.little@benlittle.dev>",
   "license": "SEE LICENSE IN LICENSE.md",
   "dependencies": {
-    "@ts-graphviz/adapter": "^2.0.3",
     "base-64": "^1.0.0",
     "commander": "^12.0.0",
     "esbuild": "^0.20.0",
@@ -19,14 +18,15 @@
     "front-matter": "^4.0.2",
     "handlebars": "^4.7.8",
     "markdown-it": "^14.0.0",
-    "markdown-it-anchor": "^9.0.1",
-    "markdown-it-highlightjs": "^4.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-highlightjs": "^4.2.0",
     "murmurhash": "^2.0.1",
+    "prettier": "^3.5.3",
     "pug": "^3.0.3",
+    "puppeteer": "^24.8.2",
     "sass": "^1.70.0",
-    "ts-graphviz": "^2.1.2",
     "uuid": "^9.0.1",
-    "yaml": "^2.3.4"
+    "yaml": "^2.7.1"
   },
   "devDependencies": {
     "@types/base-64": "^1.0.2",
@@ -34,7 +34,8 @@
     "@types/follow-redirects": "^1.14.4",
     "@types/markdown-it": "^13.0.7",
     "@types/mustache": "^4.2.5",
-    "@types/node": "^20.11.11",
+    "@types/node": "^20.17.46",
+    "@types/prettier": "^3.0.0",
     "@types/pug": "^2.0.10",
     "@types/sass": "^1.45.0",
     "@types/uuid": "^9.0.8",

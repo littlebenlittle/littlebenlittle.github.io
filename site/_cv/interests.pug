@@ -1,0 +1,8 @@
+.items
+  each interest in interests
+    .item
+      h3.title= interest.name
+      if interest.keywords
+        ul.highlights
+          each keyword in interest.keywords
+            li.highlight= keyword

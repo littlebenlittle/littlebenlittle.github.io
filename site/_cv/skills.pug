@@ -1,0 +1,11 @@
+.items
+  each skill in skills
+    .item
+      .title
+        h3= skill.name
+        h4= skill.level
+      if skill.keywords
+        .highlights
+          ul
+            each keyword in skill.keywords
+              li.highlight= keyword

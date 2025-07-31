@@ -1,0 +1,19 @@
+---
+_template: page.pug
+title: Ben Little | Blog
+---
+
+h1 Blog
+
+if _global.blog_entries
+  .blog-entries
+    each entry in _global.blog_entries
+      a(href=entry.link)
+        article(class="blog-entry")
+          h2 #{entry.title}
+          .published
+            time.date #{humanDate(entry.published)}
+          .arrow
+            div= "➜"
+else
+  p Nothing here yet...
