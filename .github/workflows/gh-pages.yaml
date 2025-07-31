@@ -37,9 +37,7 @@ jobs:
         env:
           SITE_DIR: site
           iIST_DIR: dist
-        run:
-          - mkdir dist
-          - node builder/site.js build
+        run: mkdir dist && node builder/site.js build
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
