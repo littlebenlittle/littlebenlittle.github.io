@@ -16,7 +16,7 @@ ventures. Please [get in contact](/) for more information.
 I can help assess which [type of storage](/blog/2025-07-22.html) best suits your
 needs and get your data into an appropriate long-term storage solution.
 
-### Computer Repair
+### Computer Diagnostics & Repair
 
 I can diagnose the root causes of error messages and unexpected system behavior.
 
