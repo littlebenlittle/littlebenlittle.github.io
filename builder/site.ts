@@ -14,7 +14,7 @@ const SITE_DIR = process.env["SITE_DIR"] || "";
 const DIST_DIR = process.env["DIST_DIR"] || "";
 
 if (!SITE_DIR || !DIST_DIR) {
-    console.log("Please set: SITE_DIR DIST_DIR BLOG_DIR");
+    console.log("Please set: SITE_DIR DIST_DIR");
     process.exit(1);
 }
 
