@@ -102,11 +102,7 @@ type PageAttributes = {
 };
 
 function compile_dir(dir: string) {
-    const target_dir = path.join(
-        DIST_DIR,
-        "www",
-        dir.substring(SITE_DIR.length)
-    );
+    const target_dir = path.join(DIST_DIR, dir.substring(SITE_DIR.length));
     if (!fs.existsSync(target_dir)) {
         fs.mkdirSync(target_dir);
     }
@@ -186,7 +182,6 @@ function compile_file(source: string) {
     function target_path(ext: string) {
         return path.join(
             DIST_DIR,
-            "www",
             source.substring(DIST_DIR.length, source.lastIndexOf(".")) + ext
         );
     }
