@@ -283,10 +283,15 @@ main {
             justify-self: center;
             align-self: center;
         }
+        margin-bottom: 16px;
     }
 
     .header {
         margin-bottom: 16px;
+    }
+
+    .pronouns {
+        color: $grey;
     }
 }
 
