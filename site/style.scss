@@ -235,7 +235,7 @@ main {
         }
         > ol,
         > ul {
-            padding-left: $med-gap;
+            padding-left: $small-gap;
             li:not(:last-child) {
                 padding-bottom: 8px;
             }
@@ -284,17 +284,14 @@ main {
             align-self: center;
         }
     }
+
+    .header {
+        margin-bottom: 16px;
+    }
 }
 
 section {
     margin-bottom: $med-gap;
-
-    .header {
-        h2 {
-            font-size: calc($base-font-size * 1.25);
-        }
-        padding-bottom: $small-gap;
-    }
 }
 
 #topics {

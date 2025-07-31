@@ -35,14 +35,3 @@ section#Hero
       i.fa-solid.fa-envelope
       span ben@benlittle.dev
   #description  Technology services, consulting, and education for individuals, communities, and businesses.
-
-section#topics
-  each topic in topics
-    .list
-      h2
-        a(href=topic.link).
-          #{topic.name}
-      ul
-        each link in topic.anchors
-          a(href=topic.link + "#" + link.replaceAll(" ", "-").toLowerCase())
-            li= link
