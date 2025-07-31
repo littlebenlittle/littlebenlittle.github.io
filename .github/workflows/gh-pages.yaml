@@ -1,8 +1,6 @@
 name: Github Pages
 
 on:
-  push:
-    branches: [$default-branch]
   workflow_dispatch:
 
 permissions:
@@ -18,29 +16,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '21'
-    - name: Cache Dependencies
-      uses: actions/cache@v4
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Install Dependencies
-      run: cd site-builder && npm clean-install
-    - name: Compile TypeScript
-      run: cd site-builder && npx tsc
-    - name: Build Site
-      run: node site-builder/builder.js build ./site ./build
-    - name: Upload Pages Artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: build/
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "21"
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: cd builder && npm clean-install
+      - name: Compile TypeScript
+        run: cd builder && npx tsc
+      - name: Build Site
+        environment:
+          - SITE_DIR=site
+          - DIST_DIR=dist
+        run:
+          - mkdir dist
+          - node builder/site.js build
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
 
   deploy:
     needs: build
@@ -49,6 +52,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

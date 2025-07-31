@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+}
+
+section {
+    .row {
+        display: grid;
+        grid-template-columns: 16px 1fr;
+
+        i {
+            transform: translateY(15%);
+        }
+    }
+}
+
+$main-gap: 8px;
+$cols: 3;
+$card-width: 270px;
+$card-border: 3px;
+
+main {
+    font-family: sans-serif;
+    font-size: 8px;
+    padding: $main-gap;
+    display: grid;
+    grid-template-columns: repeat(
+        $cols,
+        $card-width + 2 * ($main-gap + $card-border)
+    );
+    row-gap: $main-gap;
+    column-gap: $main-gap;
+}
+
+.card {
+    border: solid black $card-border;
+    padding: $main-gap;
+    width: $card-width;
+
+    display: grid;
+    grid-template-columns: 3fr 5fr;
+    column-gap: 16px;
+    row-gap: 8px;
+    grid-template-areas:
+        "contact    skills"
+        "emergency  emergency";
+
+    section#contact {
+        grid-area: contact;
+    }
+
+    section#skills {
+        grid-area: skills;
+    }
+
+    section#emergency {
+        grid-area: emergency;
+    }
+}

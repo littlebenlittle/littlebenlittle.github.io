@@ -1,0 +1,45 @@
+{
+  "name": "builder",
+  "version": "0.0.0",
+  "description": "Static site builder based on handlebars and markdown",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/site-builder.ts --bundle --platform=node --outfile=build/site-builder.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "commonjs",
+  "author": "Ben Little <ben.little@benlittle.dev>",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "commander": "^12.0.0",
+    "esbuild": "^0.20.0",
+    "follow-redirects": "^1.15.6",
+    "front-matter": "^4.0.2",
+    "handlebars": "^4.7.8",
+    "markdown-it": "^14.0.0",
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-highlightjs": "^4.2.0",
+    "murmurhash": "^2.0.1",
+    "prettier": "^3.5.3",
+    "pug": "^3.0.3",
+    "puppeteer": "^24.8.2",
+    "sass": "^1.70.0",
+    "uuid": "^9.0.1",
+    "yaml": "^2.7.1"
+  },
+  "devDependencies": {
+    "@types/base-64": "^1.0.2",
+    "@types/commander": "^2.12.2",
+    "@types/follow-redirects": "^1.14.4",
+    "@types/markdown-it": "^13.0.7",
+    "@types/mustache": "^4.2.5",
+    "@types/node": "^20.17.46",
+    "@types/prettier": "^3.0.0",
+    "@types/pug": "^2.0.10",
+    "@types/sass": "^1.45.0",
+    "@types/uuid": "^9.0.8",
+    "@types/yaml": "^1.9.7",
+    "typescript": "^5.3.3"
+  }
+}
