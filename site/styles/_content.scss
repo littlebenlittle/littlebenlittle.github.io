@@ -8,6 +8,7 @@
 }
 
 .content {
+    word-wrap: break-word;
     > h2::before {
         content: "#";
         padding-right: 1rem;
