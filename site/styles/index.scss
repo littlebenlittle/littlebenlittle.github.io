@@ -1,0 +1,27 @@
+@use "variables" as *;
+@use "common";
+
+#Hero {
+    font-size: xx-large;
+
+    > * {
+        margin-bottom: 1rem;
+    }
+
+    .pronouns {
+        color: $grey;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: 2rem 1fr;
+        i {
+            justify-self: center;
+            align-self: center;
+        }
+        span {
+            margin-left: 1rem;
+        }
+        margin-bottom: 1rem;
+    }
+}

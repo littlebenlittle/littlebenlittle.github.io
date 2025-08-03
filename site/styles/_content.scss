@@ -1,0 +1,70 @@
+@use "variables" as *;
+@use "_hljs/dark";
+
+@mixin decoration {
+    color: $grey2;
+    font-weight: 600;
+    padding-right: 1rem;
+}
+
+.content {
+    > h2::before {
+        content: "#";
+        padding-right: 1rem;
+        color: $grey2;
+    }
+    > h3 {
+        border-bottom: 3px solid $grey2;
+        padding-bottom: 6px;
+    }
+    > hr {
+        margin-bottom: 1rem;
+        color: $grey2;
+    }
+    > * {
+        // max-width: $max-content-width;
+        margin-bottom: 1rem;
+    }
+    > *:has(+ h2, + h3) {
+        margin-bottom: 2rem;
+    }
+    > ol,
+    > ul {
+        padding-left: 1rem;
+        li::marker {
+            @include decoration;
+        }
+        li {
+            padding-left: 1rem;
+        }
+        li:not(:last-child) {
+            padding-bottom: 0.75rem;
+        }
+    }
+    > ul {
+        list-style-type: "-";
+    }
+    > blockquote {
+        display: flex;
+        border-left: 0.5rem solid $grey2;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        > p {
+            padding: 0.5rem 0 0.5rem 1rem;
+            padding-left: 1rem;
+        }
+    }
+    > p code {
+        color: $accent;
+    }
+    > p a:hover > code {
+        color: $accent-dark;
+    }
+    .hljs {
+        background: $dark !important;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #447;
+        border-radius: 1rem;
+    }
+}

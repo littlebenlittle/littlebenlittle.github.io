@@ -5,8 +5,6 @@ title: Ben Little | Services
 
 # Services
 
----
-
 I provide a variety of computer and data services for low-to-no-cost to members
 of my local community, and reasonable fees to businesses and commercial
 ventures. Please [get in contact](/) for more information.
@@ -28,7 +26,8 @@ services for your LAN, I can help you pick ther right tools for the job.
 ### Education
 
 Whether it's for a formal academic class or passion project, I'm delighted to
-share and grow and knowledge with learners of all levels.
+share and grow and knowledge with learners of all levels in the following
+topics:
 
 -   Computer Science
 -   Mathematics
