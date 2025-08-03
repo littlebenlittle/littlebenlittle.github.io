@@ -1,0 +1,55 @@
+@use "variables" as *;
+
+.blog-entries {
+    a {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            transition-duration: 0.5s;
+            color: $grey;
+        }
+    }
+
+    a:hover {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: $white;
+            transition-duration: 0.5s;
+        }
+    }
+
+    a:not(:last-child) {
+        article {
+            border-bottom: 3px solid $grey2;
+        }
+    }
+
+    article {
+        min-height: 8rem;
+        h2 {
+            margin-bottom: 0.25rem;
+        }
+
+        .published {
+            grid-area: published;
+        }
+
+        .metadata {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .published,
+        .modified {
+            color: $grey;
+            margin-bottom: 1rem;
+        }
+    }
+}

@@ -43,7 +43,7 @@ function build-site {
         --env SITE_DIR=/run/site \
         --env DIST_DIR=/run/dist \
         --volume ./builder/node_modules:/run/node_modules:ro,z \
-        --volume ./dist:/run/dist/www:rw,z \
+        --volume ./dist:/run/dist:rw,z \
         --volume ./site:/run/site:ro,z \
         "$NODE_IMAGE" \
         node ./dist/site.js "$@"

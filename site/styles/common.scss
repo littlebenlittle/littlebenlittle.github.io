@@ -1,0 +1,58 @@
+@use "variables" as *;
+@use "frame";
+@use "content";
+@use "blog_index";
+
+/* Ellipsis for text overflow */
+@mixin elide {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    min-height: 100vh;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: $dark;
+    color: $white;
+}
+
+a {
+    text-decoration: none;
+    color: $link;
+}
+
+a:hover {
+    color: $link-dark;
+}
+
+main {
+    font-size: xx-large;
+    $padding-y: (frame.$height + 1rem);
+    padding: $padding-y 1rem $padding-y 1rem;
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    .metadata {
+        color: $grey;
+    }
+}
+
+/* wikipedia-style external link */
+.external {
+    background-image: url("/assets/external.svg");
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: 0.7em;
+    padding-right: 0.9em;
+}
