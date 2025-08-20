@@ -3,8 +3,13 @@ html(lang="en" encoding="utf8")
   head
     title= title
     meta(charset="utf-8")
-    if canonical
-      link(rel="canonical", href=canonical)
+    if noindex
+      meta(name="robots", content="noindex")
+    else
+      if canonical
+        link(rel="canonical", href=canonical)
+      else
+        link(rel="canonical", href="https://benlittle.dev" + _path)
     link(rel="stylesheet", href="/styles/common.css")
     if styles
       each style in styles

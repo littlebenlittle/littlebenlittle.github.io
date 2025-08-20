@@ -1,6 +1,7 @@
 ---
 _template: page.pug
 title: Ben Little | Services
+canonical: https://benlittle.dev/services.html
 ---
 
 # Services
