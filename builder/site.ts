@@ -203,6 +203,7 @@ function compile_file(source: string) {
             _global,
             humanDate,
         });
+        const dest = target_path(".html");
         var html;
         if (attributes._template) {
             const template = pug.compileFile(
@@ -212,12 +213,13 @@ function compile_file(source: string) {
                 _inner_html,
                 ...attributes,
                 _global,
+                _path: dest.substring(SITE_DIR.length),
                 humanDate,
             });
         } else {
             html = _inner_html;
         }
-        prettier_write_file(html, target_path(".html"), "html");
+        prettier_write_file(html, dest, "html");
     }
 
     const ext = path.extname(source);
