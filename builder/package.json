@@ -13,7 +13,7 @@
   "dependencies": {
     "base-64": "^1.0.0",
     "commander": "^12.0.0",
-    "esbuild": "^0.20.0",
+    "esbuild": "^0.25.0",
     "follow-redirects": "^1.15.6",
     "front-matter": "^4.0.2",
     "handlebars": "^4.7.8",
