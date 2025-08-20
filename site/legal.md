@@ -1,6 +1,5 @@
 ---
 _template: page.pug
-canonical: https://benlittle.dev/legal.html
 title: Ben Little | Legal
 ---
 
