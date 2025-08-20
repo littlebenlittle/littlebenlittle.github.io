@@ -182,7 +182,7 @@ function compile_file(source: string) {
     function target_path(ext: string) {
         return path.join(
             DIST_DIR,
-            source.substring(DIST_DIR.length, source.lastIndexOf(".")) + ext
+            source.substring(SITE_DIR.length, source.lastIndexOf(".")) + ext
         );
     }
 
